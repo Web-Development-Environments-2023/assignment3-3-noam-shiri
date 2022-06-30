@@ -12,7 +12,7 @@
       </div>
       <ul class="recipe-overview">
         <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.aggregateLikes }} likes</li>
+        <li>{{ recipe.popularity }} likes</li>
       </ul>
     </div>
   </router-link>
@@ -20,6 +20,7 @@
 
 <script>
 export default {
+  name: "RecipePreview",
   mounted() {
     this.axios.get(this.recipe.image).then((i) => {
       this.image_load = true;
