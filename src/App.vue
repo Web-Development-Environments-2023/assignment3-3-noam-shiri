@@ -3,14 +3,29 @@
     <div id="nav">
       <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
-      {{ !$root.store.username }}
+      <router-link :to="{ name: 'about' }">About</router-link>|
       <span v-if="!$root.store.username">
         Guest:
         <router-link :to="{ name: 'register' }">Register</router-link>|
         <router-link :to="{ name: 'login' }">Login</router-link>|
       </span>
       <span v-else>
-        {{ $root.store.username }}: <button @click="Logout">Logout</button>|
+        Hello {{ $root.store.username }}
+        <b-dropdown id="private-for-user" offset="25" variant="primary">
+          <b-dropdown-item> 
+            <router-link :to="{ name: 'favorite'}">My Favorite Recipes</router-link>
+          </b-dropdown-item>
+          <b-dropdown-item> 
+            <router-link :to="{ name: 'new'}">Create New Recipe</router-link>
+          </b-dropdown-item>
+          <b-dropdown-item> 
+            <router-link :to="{ name: 'added'}">Recipes I Created</router-link>
+          </b-dropdown-item>
+          <b-dropdown-item> 
+            <router-link :to="{ name: 'family'}">My Family Recipes</router-link>
+          </b-dropdown-item>
+        </b-dropdown>
+        <button @click="Logout">Logout</button>|
       </span>
     </div>
     <router-view />

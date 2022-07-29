@@ -193,6 +193,10 @@ export default {
   margin-right: auto;
   width: 50%;
 }
+
+h1{
+  text-align: center;
+}
 /* .recipe-header{
 
 } */
