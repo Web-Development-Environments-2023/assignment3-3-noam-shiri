@@ -77,8 +77,7 @@ export default {
           // "https://test-for-3-2.herokuapp.com/recipes/info",
           this.$root.store.server_domain + "/recipes/" + this.$route.params.recipeId,
           {
-            params: { id: this.$route.params.recipeId },
-            //session: { user_id: this.$root.store.user_id}
+            params: { recipe_id: this.$route.params.recipeId },
           }
         );
         console.log(response);

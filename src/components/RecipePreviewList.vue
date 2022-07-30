@@ -81,7 +81,8 @@ export default {
           )
         }
         else{ // no request matches 
-          response = {};
+          // response = {data:{}};
+          return;
         }
         // console.log(response);
         const recipes = response.data;//.recipes;
