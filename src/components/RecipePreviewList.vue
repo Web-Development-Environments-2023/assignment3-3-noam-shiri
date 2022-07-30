@@ -24,11 +24,28 @@ export default {
     title: {
       type: String,
       required: true
-    }
+    },
+/*    searchKeywords: {
+      type: String,
+      required: false
+    },
+    searchCuisine: {
+      type: String,
+      required: false
+    },
+    searchDiet: {
+      type: String,
+      required: false
+    },
+    searchIntolerances: {
+      type: String,
+      required: false
+    }, */
   },
   data() {
     return {
-      recipes: []
+      recipes: [],
+      searchForm: {}
     };
   },
   mounted() {
@@ -50,6 +67,22 @@ export default {
             // "https://test-for-3-2.herokuapp.com//user/watched"
           );
         }
+        else if (this.title==="Search Recipes" && Object.keys(this.searchForm).length != 0 && ( this.searchForm.keywords ||
+                  this.searchForm.cuisine || this.searchForm.diet || this.searchForm.intolerances || this.searchForm.number)){
+          console.log(this.searchForm);
+          response = await this.axios.put(this.$root.store.server_domain + "/recipes/search",
+            {
+              query: this.searchForm.keywords,
+              cuisine: this.searchForm.cuisine,
+              diet: this.searchForm.diet,
+              intolerances: this.searchForm.intolerances,
+              number: this.searchForm.number
+            }
+          )
+        }
+        else{ // no request matches 
+          response = {};
+        }
         // console.log(response);
         const recipes = response.data;//.recipes;
         // console.log(recipes);
@@ -59,6 +92,10 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    async changeSearchProps(formInfo){
+      this.searchForm = formInfo;
+      await this.updateRecipes();
     }
   }
 };
