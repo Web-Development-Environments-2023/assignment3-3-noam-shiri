@@ -2,15 +2,15 @@
   <div class="container">
     <h1 class="title">Main Page</h1>
     <div class="wrapper">
-      <div class="wrapped">
+      <div class="wrapped" id="divRandom">
         <RecipePreviewList title="Random Recipes" class="RandomRecipes center" />
       </div>
-      <div class="wrapped">
+      <div class="wrapped" id="divUser">
         <div v-if="!$root.store.username">
           <h1>Hello Guest!</h1>
           <router-link to="/login">Click Here to Login</router-link>
           <br/>
-          <label>If you don't have an account 
+          <label>You don't have an account? 
             <router-link to="/register">Click Here to Register</router-link>
           </label>
         </div>
@@ -59,5 +59,13 @@ export default {
 }
 .wrapped {
   width: 50%;
+}
+
+#divRandom{
+  background-color: rgb(144, 135, 168);
+}
+
+#divUser{
+  background-color: rgb(230, 222, 252);
 }
 </style>

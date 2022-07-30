@@ -1,19 +1,20 @@
-<template>
-  <router-link
-    :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-    class="recipe-preview"
-  >
+/<template>
+  <router-link :to="{ name: 'recipe', params: { recipeId: recipe.id } }" class="recipe-preview">
     <div class="recipe-body">
-      <img v-if="image_load" :src="recipe.image" class="recipe-image" />
-    </div>
-    <div class="recipe-footer">
-      <div :title="recipe.title" class="recipe-title">
+      <h5 :title="recipe.title" class="recipe-title">
         {{ recipe.title }}
-      </div>
-      <ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.popularity }} likes</li>
-      </ul>
+      </h5>
+      <img v-if="image_load" :src="recipe.image" class="recipe-image" />
+        <label>
+          <div class="short-details">
+            <img src="https://cdn-icons-png.flaticon.com/512/3867/3867499.png" class="icon-img"/>
+            {{ recipe.readyInMinutes }} minutes
+          </div>
+          <div class="short-details">
+            <img src="https://cdn-icons-png.flaticon.com/512/126/126473.png" class="icon-img"/>
+            {{ recipe.popularity }} likes
+          </div>
+        </label>
     </div>
   </router-link>
 </template>
@@ -65,16 +66,15 @@ export default {
 </script>
 
 <style scoped>
-.recipe-preview {
-  display: inline-block;
+ .recipe-preview {
+  /* display: inline-block; */
   width: 90%;
   height: 100%;
   position: relative;
-  margin: 10px 10px;
+  margin: 3px 3px;
 }
 .recipe-preview > .recipe-body {
   width: 100%;
-  height: 200px;
   position: relative;
 }
 
@@ -84,23 +84,15 @@ export default {
   margin-top: auto;
   margin-bottom: auto;
   display: block;
-  width: 98%;
+  width: 100%;
   height: auto;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
 }
 
-.recipe-preview .recipe-footer {
+.recipe-preview .recipe-title {
   width: 100%;
-  height: 50%;
-  overflow: hidden;
-}
-
-.recipe-preview .recipe-footer .recipe-title {
-  padding: 10px 10px;
-  width: 100%;
-  font-size: 12pt;
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
@@ -109,7 +101,6 @@ export default {
 }
 
 .recipe-preview .recipe-footer ul.recipe-overview {
-  padding: 5px 10px;
   width: 100%;
   display: -webkit-box;
   display: -moz-box;
@@ -137,6 +128,21 @@ export default {
   flex-grow: 1;
   width: 90px;
   display: table-cell;
+  text-align: center;
+}
+
+.icon-img {
+  width: 25px;
+  margin: 1%;
+}
+
+label{
+  display: flex;
+  font-size: 20px;
+}
+
+.short-details{
+  width:50%;
   text-align: center;
 }
 </style>

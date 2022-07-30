@@ -1,16 +1,15 @@
 <template>
   <b-container>
-    <h3>
-      {{ title }}:
-      <slot></slot>
-    </h3>
+    <h3> {{ title }}: <slot></slot> </h3>
     <h5 v-if="title==='Random Recipes'"> Explore this recipes </h5>
-    <b-row>
-      <b-col v-for="r in recipes" :key="r.id">
+    <div class="recipeList">
+      <b-row v-for="r in recipes" :key="r.id">
         <RecipePreview class="recipePreview" :recipe="r" />
-      </b-col>
-    </b-row>
-    <b-button @click="updateRecipes()" v-if="title==='Random Recipes'">Get Another Random Recipes</b-button>
+      </b-row>
+    </div>
+    <div id="divRandomBtn">
+      <b-button @click="updateRecipes()" v-if="title==='Random Recipes'">Get Another Random Recipes</b-button>
+    </div>
   </b-container>
 </template>
 
@@ -68,5 +67,15 @@ export default {
 <style lang="scss" scoped>
 .container {
   min-height: 400px;
+}
+
+.recipePreview{
+  padding-top: 5%;
+  padding-left: 10%;
+}
+
+#divRandomBtn{
+  margin: 2%;
+  text-align: center;
 }
 </style>
