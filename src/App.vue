@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
+      <router-link :to="{ name: 'main' }">Main</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
       <router-link :to="{ name: 'about' }">About</router-link>|
       <span v-if="!$root.store.username">
-        Guest:
+        Hello Guest:
         <router-link :to="{ name: 'register' }">Register</router-link>|
         <router-link :to="{ name: 'login' }">Login</router-link>|
       </span>
       <span v-else>
-        Hello {{ $root.store.username }}
-        <b-dropdown id="private-for-user" offset="25" variant="primary">
+        Hello {{ $root.store.username }}:
+        <b-dropdown id="private-for-user" offset="25" variant="primary" text="Personal">
           <b-dropdown-item> 
             <router-link :to="{ name: 'favorite'}">My Favorite Recipes</router-link>
           </b-dropdown-item>

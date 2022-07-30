@@ -4,11 +4,13 @@
       {{ title }}:
       <slot></slot>
     </h3>
+    <h5 v-if="title==='Random Recipes'"> Explore this recipes </h5>
     <b-row>
       <b-col v-for="r in recipes" :key="r.id">
         <RecipePreview class="recipePreview" :recipe="r" />
       </b-col>
     </b-row>
+    <b-button @click="updateRecipes()" v-if="title==='Random Recipes'">Get Another Random Recipes</b-button>
   </b-container>
 </template>
 
