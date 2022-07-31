@@ -3,9 +3,12 @@
     <h3> {{ title }}: <slot></slot> </h3>
     <h5 v-if="title==='Random Recipes'"> Explore this recipes </h5>
     <div class="recipeList">
-      <b-row v-for="r in recipes" :key="r.id">
-        <RecipePreview class="recipePreview" :recipe="r" />
+      <b-row>
+        <b-col cols="4" v-for="r in recipes" :key="r.id">
+          <RecipePreview class="recipePreview" :recipe="r" />
+        </b-col>        
       </b-row>
+
     </div>
     <div id="divRandomBtn">
       <b-button @click="updateRecipes()" v-if="title==='Random Recipes'">Get Another Random Recipes</b-button>
@@ -67,7 +70,7 @@ export default {
             // "https://test-for-3-2.herokuapp.com//user/watched"
           );
         }
-        else if (this.title==="Search Recipes" && Object.keys(this.searchForm).length != 0 && ( this.searchForm.keywords ||
+        else if (this.title==="Search Results" && Object.keys(this.searchForm).length != 0 && ( this.searchForm.keywords ||
                   this.searchForm.cuisine || this.searchForm.diet || this.searchForm.intolerances || this.searchForm.number)){
           console.log(this.searchForm);
           response = await this.axios.put(this.$root.store.server_domain + "/recipes/search",

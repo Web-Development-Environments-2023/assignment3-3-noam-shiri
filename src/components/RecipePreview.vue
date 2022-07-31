@@ -1,20 +1,16 @@
 /<template>
   <router-link :to="{ name: 'recipe', params: { recipeId: recipe.id } }" class="recipe-preview">
     <div class="recipe-body">
-      <h5 :title="recipe.title" class="recipe-title">
-        {{ recipe.title }}
-      </h5>
       <img v-if="image_load" :src="recipe.image" class="recipe-image" />
-        <label>
-          <div class="short-details">
-            <img src="https://cdn-icons-png.flaticon.com/512/3867/3867499.png" class="icon-img"/>
-            {{ recipe.readyInMinutes }} minutes
-          </div>
-          <div class="short-details">
-            <img src="https://cdn-icons-png.flaticon.com/512/126/126473.png" class="icon-img"/>
-            {{ recipe.popularity }} likes
-          </div>
-        </label>
+    </div>
+    <div class="recipe-footer">
+      <div :title="recipe.title" class="recipe-title">
+        {{ recipe.title }}
+      </div>
+      <ul class="recipe-overview">
+        <li>{{ recipe.readyInMinutes }} minutes</li>
+        <li>{{ recipe.popularity }} likes</li>
+      </ul>
     </div>
   </router-link>
 </template>
@@ -66,41 +62,47 @@ export default {
 </script>
 
 <style scoped>
- .recipe-preview {
-  /* display: inline-block; */
+.recipe-preview {
+  display: inline-block;
   width: 90%;
   height: 100%;
   position: relative;
-  margin: 3px 3px;
+  margin: 10px 10px;
 }
 .recipe-preview > .recipe-body {
   width: 100%;
+  height: 200px;
   position: relative;
 }
-
 .recipe-preview .recipe-body .recipe-image {
   margin-left: auto;
   margin-right: auto;
   margin-top: auto;
   margin-bottom: auto;
   display: block;
-  width: 100%;
+  width: 98%;
   height: auto;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
 }
-
-.recipe-preview .recipe-title {
+.recipe-preview .recipe-footer {
   width: 100%;
+  height: 50%;
+  overflow: hidden;
+}
+.recipe-preview .recipe-footer .recipe-title {
+  padding: 10px 10px;
+  width: 100%;
+  font-size: 12pt;
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
-
 .recipe-preview .recipe-footer ul.recipe-overview {
+  padding: 5px 10px;
   width: 100%;
   display: -webkit-box;
   display: -moz-box;
@@ -117,7 +119,6 @@ export default {
   table-layout: fixed;
   margin-bottom: 0px;
 }
-
 .recipe-preview .recipe-footer ul.recipe-overview li {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;

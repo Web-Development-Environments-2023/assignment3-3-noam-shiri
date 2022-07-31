@@ -1,58 +1,67 @@
 <template>
   <div class="container">
     <h1 class="title">Search Page</h1>
-    <b-row>
-      <b-col cols="6">
-        <b-form @submit.prevent="onSearch" @keyup.enter="onSearch">
-        
-          <b-form-group id="input-group-Keywords" label-cols-sm="3" label="Keywords:" label-for="Keywords">
+    <div id="div-wrapper">
+    <b-form @submit.prevent="onSearch" @keyup.enter="onSearch" id="form-wrapper">
+      <b-row>
+        <b-col cols="12">
+          <b-form-group id="input-group-Keywords" label-cols-sm="2" label="Keywords:" label-for="Keywords">
             <b-form-input id="Keywords" v-model="form.keywords" type="text" placeholder="Enter keywords to search"></b-form-input>
           </b-form-group>
-
-          <b-form-group id="input-group-Cuisine" label-cols-sm="3" label="Cuisine:" label-for="Cuisine">
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col cols="6">
+          <b-form-group id="input-group-Cuisine" label-cols-sm="4" label="Cuisine:" label-for="Cuisine">
             <b-form-select id="Cuisine" v-model="form.cuisine" type="text" >
               <option value="" selected>No Filtering</option>
               <option v-for="c in cuisine_options" :value="c.value" :key="c.id">{{c.value}}</option>
             </b-form-select>
           </b-form-group>
-
-          <b-form-group id="input-group-Diet " label-cols-sm="3" label="Diet :" label-for="Diet ">
+        </b-col>
+        <b-col cols="6">
+          <b-form-group id="input-group-Diet " label-cols-sm="4" label="Diet :" label-for="Diet ">
             <b-form-select id="Diet " v-model="form.diet" type="text" >
               <option value="" selected>No Filtering</option>
               <option v-for="d in diet_options" :value="d.value" :key="d.id">{{d.value}}</option>
             </b-form-select>
           </b-form-group>
-
-          <b-form-group id="input-group-Intolerances " label-cols-sm="3" label="Intolerances :" label-for="Intolerances ">
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col cols="6">   
+          <b-form-group id="input-group-Intolerances " label-cols-sm="4" label="Intolerances:" label-for="Intolerances ">
             <b-form-select id="Intolerances " v-model="form.intolerances" type="text" >
               <option value="" selected>No Filtering</option>
               <option v-for="i in intolerances_options" :value="i.value" :key="i.id">{{i.value}}</option>
             </b-form-select>
           </b-form-group>
-
-          <b-row>            
-            <b-col cols="6">
-              <b-form-group id="input-group-Number " label-cols-sm="6" label="Number :" label-for="Number ">
-                <b-form-select id="Number " v-model="form.number" type="text" >
-                  <option value="5" selected>5</option>
-                  <option value="10">10</option>
-                  <option value="15">15</option>
-                </b-form-select>
-              </b-form-group>
-            </b-col>
-
-            <b-col cols="6">
-              <b-button type="submit" variant="primary" class="mx-auto w-100" :disabled="!this.form.keywords &&
-                  !this.form.cuisine && !this.form.diet && !this.form.intolerances && !this.form.number">Search</b-button>
-            </b-col>
-          </b-row>
-        </b-form>
-      </b-col>
-
-      <b-col cols="6" id="lastSearch">
-        <RecipePreviewList id="searchRes" title="Search Recipes" ref="searchChildComp"></RecipePreviewList>
-      </b-col>
-    </b-row>
+        </b-col>      
+        <b-col cols="6">
+          <b-form-group id="input-group-Number " label-cols-sm="4" label="Number:" label-for="Number ">
+            <b-form-select id="Number " v-model="form.number" type="text" >
+              <option value="5" selected>5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+            </b-form-select>
+          </b-form-group>
+        </b-col> 
+      </b-row>
+      <b-row>  
+        <b-col cols="12">
+          <b-button type="submit" variant="primary" class="mx-auto w-100" :disabled="!this.form.keywords &&
+              !this.form.cuisine && !this.form.diet && !this.form.intolerances && !this.form.number">Search</b-button>
+        </b-col>
+      </b-row>
+    </b-form>
+    <div id="divLastSearch">
+      <h3>Last Search Results:</h3>
+      <label>TO DO: Add last search here!</label>
+    </div>
+</div>
+    <div id="divSearchRes">
+      <RecipePreviewList id="searchRes" title="Search Results" ref="searchChildComp"></RecipePreviewList>
+    </div>
   </div>
 </template>
 
@@ -118,5 +127,29 @@ export default {
 </script>
 
 <style>
+#form-wrapper{
+  width:60%;
+  background-color: rgb(230, 222, 252);  
+  padding: 30px;
+  margin: 3px;
 
+}
+#divLastSearch{
+  width:40%;
+  border: 2px;
+  border-color: black;
+  padding: 30px;
+  background-color: rgb(144, 135, 168);
+  margin: 3px;
+}
+
+#div-wrapper{
+  display: flex;
+}
+
+#divSearchRes{
+  background-color: rgb(178, 173, 190);  
+  margin: 3px;
+  padding: 30px;
+}
 </style>

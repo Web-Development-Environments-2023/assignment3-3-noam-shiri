@@ -1,11 +1,8 @@
 <template>
   <div class="container">
     <h1 class="title">Main Page</h1>
-    <div class="wrapper">
-      <div class="wrapped" id="divRandom">
-        <RecipePreviewList title="Random Recipes" class="RandomRecipes center" />
-      </div>
-      <div class="wrapped" id="divUser">
+    <div>
+      <div id="divUser">
         <div v-if="!$root.store.username">
           <h1>Hello Guest!</h1>
           <router-link to="/login">Click Here to Login</router-link>
@@ -13,7 +10,7 @@
           <label>You don't have an account? 
             <router-link to="/register">Click Here to Register</router-link>
           </label>
-        </div>
+        </div>        
         <RecipePreviewList v-else
           title="Last Viewed Recipes"
           :class="{
@@ -23,6 +20,9 @@
           }"
           disabled
         ></RecipePreviewList>     
+      </div>
+            <div id="divRandom">
+        <RecipePreviewList title="Random Recipes" class="RandomRecipes center" />
       </div>
     </div>
     <!-- <div
@@ -54,18 +54,23 @@ export default {
   pointer-events: none;
   cursor: default;
 }
-.wrapper {
-  display: flex;
-}
-.wrapped {
-  width: 50%;
-}
+// .wrapper {
+//   display: flex;
+// }
+// .wrapped {
+//   width: 50%;
+// }
 
 #divRandom{
   background-color: rgb(144, 135, 168);
+  padding: 30px;
+  margin: 6px;
 }
 
 #divUser{
   background-color: rgb(230, 222, 252);
+  padding: 30px;
+  text-align: center;  
+  margin: 6px;
 }
 </style>
