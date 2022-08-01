@@ -1,18 +1,26 @@
 /<template>
-  <router-link :to="{ name: 'recipe', params: { recipeId: recipe.id } }" class="recipe-preview">
-    <div class="recipe-body">
-      <img v-if="image_load" :src="recipe.image" class="recipe-image" />
-    </div>
-    <div class="recipe-footer">
-      <div :title="recipe.title" class="recipe-title">
-        {{ recipe.title }}
+  <div>
+    <router-link :to="{ name: 'recipe', params: { recipeId: recipe.id } }" class="recipe-preview">
+      <div class="recipe-body">
+        <div :title="recipe.title" class="recipe-title">
+          {{ recipe.title }}
+        </div>
+        <img v-if="image_load" :src="recipe.image" class="recipe-image" />
       </div>
-      <ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.popularity }} likes</li>
-      </ul>
-    </div>
-  </router-link>
+      <div class="recipe-footer">
+        <ul class="recipe-overview">
+          <li>
+            <img src="https://cdn-icons-png.flaticon.com/512/3867/3867499.png" class="icon-img"/>
+            <span class="span-short-details">{{ recipe.readyInMinutes }} min</span>
+          </li>
+          <li>
+            <img src="https://cdn-icons-png.flaticon.com/512/126/126473.png" class="icon-img"/>
+            <span class="span-short-details">{{ recipe.popularity }} likes</span>
+          </li>
+        </ul>
+      </div>
+    </router-link>
+  </div>
 </template>
 
 <script>
@@ -101,6 +109,15 @@ export default {
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
+
+.recipe-title{
+    display: inline-block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
 .recipe-preview .recipe-footer ul.recipe-overview {
   padding: 5px 10px;
   width: 100%;
@@ -142,7 +159,7 @@ label{
   font-size: 20px;
 }
 
-.short-details{
+.span-short-details{
   width:50%;
   text-align: center;
 }

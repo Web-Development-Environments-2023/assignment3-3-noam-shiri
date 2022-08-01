@@ -138,14 +138,14 @@ export default {
 
   methods:{ // TO DO: save in db!!!
     addToFavorites(){
-      /* to check: */
+      /* TO DO: to check: */
       // console.log(this.$root.store.user_id); //undefined
       // console.log(this.$root.store.username); //shiri - works
-      /*  const response = this.axios.post(
+        const response = this.axios.post(
           // "https://test-for-3-2.herokuapp.com/users/favorites",
           this.$root.store.server_domain + "/users/favorites",
           {
-            body: { recipe_id: this.recipe.id },
+             recipe_id: this.recipe.id,
             //session: { user_id: this.$root.store.user_id}
           }
         );
@@ -155,16 +155,16 @@ export default {
         }
         else{
           console.log("error accured while favorite " + response.status);
-        }*/
+        }
     },
 
     removeFromFavorites(){
-      /* to check: */
-      /*const response = this.axios.delete(
+      /* TO DO: to check: */
+      const response = this.axios.delete(
         // "https://test-for-3-2.herokuapp.com/users/favorites",
         this.$root.store.server_domain + "/users/favorites/",
         {
-          body: { recipe_id: this.recipe.id }
+          recipe_id: this.recipe.id
         }
       );
       if (response.status==201){
@@ -173,7 +173,7 @@ export default {
       }
       else{
         console.log("error accured while unfavorite " + response.status);
-      }*/
+      }
     }
   }
 };
