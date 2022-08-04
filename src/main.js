@@ -68,6 +68,7 @@ Vue.config.productionTip = false;
 
 const shared_data = {
   username: localStorage.username,
+  sessionLastSearch:{},
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;

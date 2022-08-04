@@ -55,27 +55,27 @@
       </b-row>
     </b-form>
     <div id="divLastSearch">
-      <h3>Last Search Results:</h3>
-      <div v-if="Object.keys(this.lastSearch).length>0" id="exist-last-search">
-        <b-row v-if="lastSearch.keywords!=undefined">
+      <h3>Last Time You Searched:</h3>
+      <div v-if="Object.keys($root.store.sessionLastSearch).length>0" id="exist-last-search">
+        <b-row v-if="$root.store.sessionLastSearch.keywords!=undefined">
           <label class="search-headers">Keywords: </label>
-          <label class="search-content">{{lastSearch.keywords}}</label>
+          <label class="search-content">{{$root.store.sessionLastSearch.keywords}}</label>
         </b-row>
-        <b-row v-if="lastSearch.cuisine!=undefined">
+        <b-row v-if="$root.store.sessionLastSearch.cuisine!=undefined">
           <label class="search-headers">Cuisine: </label>
-          <label class="search-content">{{lastSearch.cuisine}}</label>
+          <label class="search-content">{{$root.store.sessionLastSearch.cuisine}}</label>
         </b-row>
-        <b-row v-if="lastSearch.diet!=undefined">
+        <b-row v-if="$root.store.sessionLastSearch.diet!=undefined">
           <label class="search-headers">Diet: </label>
-          <label class="search-content">{{lastSearch.diet}}</label>
+          <label class="search-content">{{$root.store.sessionLastSearch.diet}}</label>
         </b-row>
-        <b-row v-if="lastSearch.intolerances!=undefined">
+        <b-row v-if="$root.store.sessionLastSearch.intolerances!=undefined">
           <label class="search-headers">Intolerances: </label>
-          <label class="search-content">{{lastSearch.intolerances}}</label>
+          <label class="search-content">{{$root.store.sessionLastSearch.intolerances}}</label>
         </b-row>
-        <b-row v-if="lastSearch.number!=undefined">
+        <b-row v-if="$root.store.sessionLastSearch.number!=undefined">
           <label class="search-headers">Number of results: </label>
-          <label class="search-content">{{lastSearch.number}}</label>
+          <label class="search-content">{{$root.store.sessionLastSearch.number}}</label>
         </b-row>
       </div>
       <div v-else>
@@ -139,9 +139,9 @@ export default {
   //   }
   // },
   methods:{
-    mounted(){
-      this.getLastSearch();
-    },
+    // mounted(){
+    //   this.getLastSearch();
+    // },
     async onSearch(){
       if (this.form.keywords===""){
         this.form.keywords = undefined
@@ -158,21 +158,24 @@ export default {
       if (this.form.number===""){
         this.form.number = undefined
       }
+      console.log(this.form);
+      console.log(this.$root.store.sessionLastSearch);
       await this.$refs.searchChildComp.changeSearchProps(this.form);
-      this.lastSearch = {...this.form};
+      this.$root.store.sessionLastSearch = {...this.form};
+      //this.lastSearch = this.$root.store.sessionLastSearch;
     },
-    async getLastSearch(){
-      /* TO DO: to check: */
-      try{
-        // maybe we don't need to get last search from db at all according to instuctions?????
-        let response = await this.axios.get(this.$root.store.server_domain + "/recipes/search");
-        this.lastSearch = response.data;
-        // TO DO: save last search somehow in browser
-      }
-      catch (error){
-        console.log(error);
-      }
-    },
+    // async getLastSearch(){
+    //   /* TO DO: to check: */
+    //   try{
+    //     // maybe we don't need to get last search from db at all according to instuctions?????
+    //     let response = await this.axios.get(this.$root.store.server_domain + "/recipes/search");
+    //     this.lastSearch = response.data;
+    //     // TO DO: save last search somehow in browser
+    //   }
+    //   catch (error){
+    //     console.log(error);
+    //   }
+    // },
   }
 }
 </script>
