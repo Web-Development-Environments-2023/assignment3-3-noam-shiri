@@ -2,87 +2,87 @@
   <div class="container">
     <h1 class="title">Search Page</h1>
     <div id="div-wrapper">
-    <b-form @submit.prevent="onSearch" @keyup.enter="onSearch" id="form-wrapper">
-      <b-row>
-        <b-col cols="12">
-          <b-form-group id="input-group-Keywords" label-cols-sm="2" label="Keywords:" label-for="Keywords">
-            <b-form-input id="Keywords" v-model="form.keywords" type="text" placeholder="Enter keywords to search"></b-form-input>
-          </b-form-group>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col cols="6">
-          <b-form-group id="input-group-Cuisine" label-cols-sm="4" label="Cuisine:" label-for="Cuisine">
-            <b-form-select id="Cuisine" v-model="form.cuisine" type="text" >
-              <option value="" selected>No Filtering</option>
-              <option v-for="c in cuisine_options" :value="c.value" :key="c.id">{{c.value}}</option>
-            </b-form-select>
-          </b-form-group>
-        </b-col>
-        <b-col cols="6">
-          <b-form-group id="input-group-Diet " label-cols-sm="4" label="Diet :" label-for="Diet ">
-            <b-form-select id="Diet " v-model="form.diet" type="text" >
-              <option value="" selected>No Filtering</option>
-              <option v-for="d in diet_options" :value="d.value" :key="d.id">{{d.value}}</option>
-            </b-form-select>
-          </b-form-group>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col cols="6">   
-          <b-form-group id="input-group-Intolerances " label-cols-sm="4" label="Intolerances:" label-for="Intolerances ">
-            <b-form-select id="Intolerances " v-model="form.intolerances" type="text" >
-              <option value="" selected>No Filtering</option>
-              <option v-for="i in intolerances_options" :value="i.value" :key="i.id">{{i.value}}</option>
-            </b-form-select>
-          </b-form-group>
-        </b-col>      
-        <b-col cols="6">
-          <b-form-group id="input-group-Number " label-cols-sm="4" label="Number:" label-for="Number ">
-            <b-form-select id="Number " v-model="form.number" type="text" >
-              <option value="5" selected>5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-            </b-form-select>
-          </b-form-group>
-        </b-col> 
-      </b-row>
-      <b-row>  
-        <b-col cols="12">
-          <b-button type="submit" variant="primary" class="mx-auto w-100" :disabled="!this.form.keywords &&
-              !this.form.cuisine && !this.form.diet && !this.form.intolerances && !this.form.number">Search</b-button>
-        </b-col>
-      </b-row>
-    </b-form>
-    <div id="divLastSearch">
-      <h3>Last Time You Searched:</h3>
-      <div v-if="Object.keys($root.store.sessionLastSearch).length>0" id="exist-last-search">
-        <b-row v-if="$root.store.sessionLastSearch.keywords!=undefined">
-          <label class="search-headers">Keywords: </label>
-          <label class="search-content">{{$root.store.sessionLastSearch.keywords}}</label>
+      <b-form @submit.prevent="onSearch" @keyup.enter="onSearch" id="form-wrapper">
+        <b-row>
+          <b-col cols="12">
+            <b-form-group id="input-group-Keywords" label-cols-sm="2" label="Keywords:" label-for="Keywords">
+              <b-form-input id="Keywords" v-model="form.keywords" type="text" placeholder="Enter keywords to search"></b-form-input>
+            </b-form-group>
+          </b-col>
         </b-row>
-        <b-row v-if="$root.store.sessionLastSearch.cuisine!=undefined">
-          <label class="search-headers">Cuisine: </label>
-          <label class="search-content">{{$root.store.sessionLastSearch.cuisine}}</label>
+        <b-row>
+          <b-col cols="6">
+            <b-form-group id="input-group-Cuisine" label-cols-sm="4" label="Cuisine:" label-for="Cuisine">
+              <b-form-select id="Cuisine" v-model="form.cuisine" type="text" >
+                <option value="" selected>No Filtering</option>
+                <option v-for="c in cuisine_options" :value="c.value" :key="c.id">{{c.value}}</option>
+              </b-form-select>
+            </b-form-group>
+          </b-col>
+          <b-col cols="6">
+            <b-form-group id="input-group-Diet " label-cols-sm="4" label="Diet :" label-for="Diet ">
+              <b-form-select id="Diet " v-model="form.diet" type="text" >
+                <option value="" selected>No Filtering</option>
+                <option v-for="d in diet_options" :value="d.value" :key="d.id">{{d.value}}</option>
+              </b-form-select>
+            </b-form-group>
+          </b-col>
         </b-row>
-        <b-row v-if="$root.store.sessionLastSearch.diet!=undefined">
-          <label class="search-headers">Diet: </label>
-          <label class="search-content">{{$root.store.sessionLastSearch.diet}}</label>
+        <b-row>
+          <b-col cols="6">   
+            <b-form-group id="input-group-Intolerances " label-cols-sm="4" label="Intolerances:" label-for="Intolerances ">
+              <b-form-select id="Intolerances " v-model="form.intolerances" type="text" >
+                <option value="" selected>No Filtering</option>
+                <option v-for="i in intolerances_options" :value="i.value" :key="i.id">{{i.value}}</option>
+              </b-form-select>
+            </b-form-group>
+          </b-col>      
+          <b-col cols="6">
+            <b-form-group id="input-group-Number " label-cols-sm="4" label="Number:" label-for="Number ">
+              <b-form-select id="Number " v-model="form.number" type="text" >
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+              </b-form-select>
+            </b-form-group>
+          </b-col> 
         </b-row>
-        <b-row v-if="$root.store.sessionLastSearch.intolerances!=undefined">
-          <label class="search-headers">Intolerances: </label>
-          <label class="search-content">{{$root.store.sessionLastSearch.intolerances}}</label>
+        <b-row>  
+          <b-col cols="12">
+            <b-button type="submit" variant="primary" class="mx-auto w-100" :disabled="!this.form.keywords &&
+                !this.form.cuisine && !this.form.diet && !this.form.intolerances && !this.form.number">Search</b-button>
+          </b-col>
         </b-row>
-        <b-row v-if="$root.store.sessionLastSearch.number!=undefined">
-          <label class="search-headers">Number of results: </label>
-          <label class="search-content">{{$root.store.sessionLastSearch.number}}</label>
-        </b-row>
-      </div>
-      <div v-else>
-        <label>You don't have any search history - Start Searching! </label>
+      </b-form>
+      <div id="divLastSearch">
+        <h3>Last Time You Searched:</h3>
+        <div v-if="Object.keys($root.store.sessionLastSearch).length>0" id="exist-last-search">
+          <b-row v-if="$root.store.sessionLastSearch.keywords!=undefined">
+            <label class="search-headers">Keywords: </label>
+            <label class="search-content">{{$root.store.sessionLastSearch.keywords}}</label>
+          </b-row>
+          <b-row v-if="$root.store.sessionLastSearch.cuisine!=undefined">
+            <label class="search-headers">Cuisine: </label>
+            <label class="search-content">{{$root.store.sessionLastSearch.cuisine}}</label>
+          </b-row>
+          <b-row v-if="$root.store.sessionLastSearch.diet!=undefined">
+            <label class="search-headers">Diet: </label>
+            <label class="search-content">{{$root.store.sessionLastSearch.diet}}</label>
+          </b-row>
+          <b-row v-if="$root.store.sessionLastSearch.intolerances!=undefined">
+            <label class="search-headers">Intolerances: </label>
+            <label class="search-content">{{$root.store.sessionLastSearch.intolerances}}</label>
+          </b-row>
+          <b-row v-if="$root.store.sessionLastSearch.number!=undefined">
+            <label class="search-headers">Number of results: </label>
+            <label class="search-content">{{$root.store.sessionLastSearch.number}}</label>
+          </b-row>
+        </div>
+        <div v-else>
+          <label>You don't have any search history - Start Searching! </label>
+        </div>
       </div>
     </div>
-</div>
     <div id="divSearchRes">
       <RecipePreviewList id="searchRes" title="Search Results" ref="searchChildComp"></RecipePreviewList>
     </div>
