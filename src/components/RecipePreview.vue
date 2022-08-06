@@ -1,41 +1,67 @@
-/<template>
+<template>
   <div>
     <router-link :to="{ name: 'recipe', params: { recipeId: recipe.id } }" class="recipe-preview">
       <div class="recipe-body">
         <div :title="recipe.title" class="recipe-title">
           {{ recipe.title }}
         </div>
-        <img v-if="image_load" :src="recipe.image" class="recipe-image" />
+        <img :src="recipe.image" class="recipe-image" />
       </div>
       <div class="recipe-footer">
         <ul class="recipe-overview">
           <li>
-            <img src="https://cdn-icons-png.flaticon.com/512/3867/3867499.png" class="icon-img"/>
+            <img :src="this.$root.store.iconsLinks.readyInMinutes" class="icon-img"/>
             <span class="span-short-details">{{ recipe.readyInMinutes }} min</span>
           </li>
           <li>
-            <img src="https://cdn-icons-png.flaticon.com/512/126/126473.png" class="icon-img"/>
+            <img :src="this.$root.store.iconsLinks.popularity" class="icon-img"/>
             <span class="span-short-details">{{ recipe.popularity }} likes</span>
           </li>
         </ul>
       </div>
     </router-link>
+    <b-row>
+      <b-col v-if="this.recipe.hasFavorited">
+        <img :src="this.$root.store.iconsLinks.favorite" class="icon-img"/>
+        <span class="span-short-details">Favorited</span>
+      </b-col>
+      <b-col v-else>
+        <img :src="this.$root.store.iconsLinks.notFavorite" class="icon-img"/>
+        <span class="span-short-details">Not Favorited</span>
+      </b-col>
+      <b-col v-if="this.recipe.vegan">
+        <img :src="this.$root.store.iconsLinks.vegan" class="icon-img"/>
+      </b-col>
+      <b-col v-if="this.recipe.vegetarian">
+        <img :src="this.$root.store.iconsLinks.vegetarian" class="icon-img"/>
+      </b-col>
+      <b-col v-if="this.recipe.glutenFree">
+        <img :src="this.$root.store.iconsLinks.glutenFree" class="icon-img"/>
+      </b-col>
+      <b-col v-else>
+        <img :src="this.$root.store.iconsLinks.gluten" class="icon-img"/>
+      </b-col>
+      <b-col v-if="this.recipe.hasWatched">
+        <img :src="this.$root.store.iconsLinks.watched" class="icon-img"/>
+        <span class="span-short-details">Watched</span>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
 <script>
 export default {
   name: "RecipePreview",
-  mounted() {
-    this.axios.get(this.recipe.image).then((i) => {
-      this.image_load = true;
-    });
-  },
-  data() {
-    return {
-      image_load: false
-    };
-  },
+  // mounted() {
+  //   this.axios.get(this.recipe.image).then((i) => {
+  //     this.image_load = true;
+  //   });
+  // },
+  // data() {
+  //   return {
+  //     image_load: false
+  //   };
+  // },
   props: {
     recipe: {
       type: Object,

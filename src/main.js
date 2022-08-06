@@ -3,6 +3,8 @@ import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
 
+axios.defaults.withCredentials = true;
+
 import routes from "./routes";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
@@ -24,6 +26,8 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  ModalPlugin,
+  FormTextareaPlugin
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -36,6 +40,8 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  ModalPlugin,
+  FormTextareaPlugin
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
@@ -80,6 +86,17 @@ const shared_data = {
     this.username = undefined;
   },
   server_domain: 'http://localhost:80',
+  iconsLinks : {
+    notFavorite: "https://cdn-icons-png.flaticon.com/512/833/833300.png",
+    favorite: "https://cdn-icons-png.flaticon.com/512/833/833472.png",
+    watched: "https://cdn-icons-png.flaticon.com/512/3308/3308898.png",
+    vegan:"https://cdn-icons.flaticon.com/png/512/5129/premium/5129836.png?token=exp=1659778350~hmac=a084dd569e5d6801e10e84f7fc69ea99",
+    glutenFree:"https://cdn-icons-png.flaticon.com/512/7312/7312801.png",
+    gluten:"https://cdn-icons-png.flaticon.com/512/7312/7312798.png",
+    vegeterian:"https://cdn-icons-png.flaticon.com/512/892/892917.png",
+    readyInMinutes:"https://cdn-icons-png.flaticon.com/512/3867/3867499.png",
+    popularity:"https://cdn-icons-png.flaticon.com/512/126/126473.png",
+    }
 };
 console.log(shared_data);
 // Vue.prototype.$root.store = shared_data;

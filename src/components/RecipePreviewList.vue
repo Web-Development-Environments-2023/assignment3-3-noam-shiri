@@ -54,10 +54,10 @@ export default {
             // "https://test-for-3-2.herokuapp.com/recipes/random"
           );
         }
-        else if (this.title==="Last Viewed Recipes" && this.$root.store.username){ // TO DO: check why there's problem with authentication!
+        else if (this.title==="Last Viewed Recipes" && this.$root.store.username){
             response = await this.axios.get(
             this.$root.store.server_domain + "/users/watched",
-            // "https://test-for-3-2.herokuapp.com//user/watched"
+            // "https://test-for-3-2.herokuapp.com//users/watched"
           );
         }
         else if (this.title==="Search Results" && Object.keys(this.searchForm).length != 0 && ( this.searchForm.keywords ||

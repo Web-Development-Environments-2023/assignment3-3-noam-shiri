@@ -15,8 +15,8 @@
           <b-dropdown-item> 
             <router-link :to="{ name: 'favorite'}">My Favorite Recipes</router-link>
           </b-dropdown-item>
-          <b-dropdown-item> 
-            <router-link :to="{ name: 'new'}">Create New Recipe</router-link>
+          <b-dropdown-item href=""> 
+            <RecipeCreator/>
           </b-dropdown-item>
           <b-dropdown-item> 
             <router-link :to="{ name: 'added'}">Recipes I Created</router-link>
@@ -33,25 +33,27 @@
 </template>
 
 <script>
+import RecipeCreator from './pages/RecipeCreator.vue';
 export default {
-  name: "App",
-  methods: {
-    async Logout() {
-      try{
-        const response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/user/Login",
-          this.$root.store.server_domain +"/Logout",
-        );
-        this.$root.store.logout();
-        this.$root.toast("Logout", "User logged out successfully", "success");
-        this.$router.push("/").catch(() => {
-          this.$forceUpdate();
-        });
-      }catch (err) {
-        console.log(err.response);
-      }
-    }
-  }
+    name: "App",
+    methods: {
+        async Logout() {
+            try {
+                const response = await this.axios.post(
+                // "https://test-for-3-2.herokuapp.com/user/Login",
+                this.$root.store.server_domain + "/Logout");
+                this.$root.store.logout();
+                this.$root.toast("Logout", "User logged out successfully", "success");
+                this.$router.push("/").catch(() => {
+                    this.$forceUpdate();
+                });
+            }
+            catch (err) {
+                console.log(err.response);
+            }
+        }
+    },
+    components: { RecipeCreator }
 };
 </script>
 
@@ -78,4 +80,5 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
 </style>

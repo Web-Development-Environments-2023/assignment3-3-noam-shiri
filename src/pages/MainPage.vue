@@ -21,8 +21,8 @@
           disabled
         ></RecipePreviewList>     
       </div>
-            <div id="divRandom">
-        <RecipePreviewList title="Random Recipes" class="RandomRecipes center" />
+        <div id="divRandom">
+          <RecipePreviewList title="Random Recipes" class="RandomRecipes center" />
       </div>
     </div>
     <!-- <div
