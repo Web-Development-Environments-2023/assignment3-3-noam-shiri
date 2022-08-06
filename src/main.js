@@ -84,7 +84,9 @@ const shared_data = {
     console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
+    this.sessionLastSearch = {};
   },
+  
   server_domain: 'http://localhost:80',
   iconsLinks : {
     notFavorite: "https://cdn-icons-png.flaticon.com/512/833/833300.png",

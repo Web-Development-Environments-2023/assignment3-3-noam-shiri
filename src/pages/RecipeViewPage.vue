@@ -160,10 +160,7 @@ export default {
              recipe_id: this.recipe.id,
           }
         );
-        console.log(response);
-        console.log(response.status);
         if (response.status==201){
-          console.log("favorite!");
           this.recipe.hasFavorited = true;
           this.changeToLikeIcon();
         }

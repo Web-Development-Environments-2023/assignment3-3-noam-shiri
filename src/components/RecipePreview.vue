@@ -21,13 +21,9 @@
       </div>
     </router-link>
     <b-row>
-      <b-col v-if="this.recipe.hasFavorited">
-        <img :src="this.$root.store.iconsLinks.favorite" class="icon-img"/>
-        <span class="span-short-details">Favorited</span>
-      </b-col>
-      <b-col v-else>
-        <img :src="this.$root.store.iconsLinks.notFavorite" class="icon-img"/>
-        <span class="span-short-details">Not Favorited</span>
+      <b-col v-if="this.$root.store.username">
+        <img :src="this.likeIcon" class="icon-img like-icon" @click="addToFavorites"/>
+        <span class="span-short-details">{{this.likeText}}</span>
       </b-col>
       <b-col v-if="this.recipe.vegan">
         <img :src="this.$root.store.iconsLinks.vegan" class="icon-img"/>
@@ -57,11 +53,18 @@ export default {
   //     this.image_load = true;
   //   });
   // },
-  // data() {
-  //   return {
-  //     image_load: false
-  //   };
-  // },
+  data() {
+    return {
+      // image_load: false
+      likeIcon : this.$root.store.iconsLinks.notFavorite,
+      likeText : "Not Favorited"
+    };
+  },
+  created() {
+    if (this.recipe.hasFavorited){
+      this.changeToLikeIcon();
+    }
+  },
   props: {
     recipe: {
       type: Object,
@@ -91,6 +94,28 @@ export default {
     //     return undefined;
     //   }
     // }
+  },
+  methods:{
+    changeToLikeIcon(){
+      this.likeIcon = this.$root.store.iconsLinks.favorite;
+      this.likeText = "Favorited"
+    },
+    async addToFavorites(){
+      const response = await this.axios.post(
+        // "https://test-for-3-2.herokuapp.com/users/favorites",
+        this.$root.store.server_domain + "/users/favorites",
+        {
+            recipe_id: this.recipe.id,
+        }
+      );
+      if (response.status==201){
+        this.recipe.hasFavorited = true;
+        this.changeToLikeIcon();
+      }
+      else{
+        console.log("error accured while favorite " + response.status);
+      }
+    },
   }
 };
 </script>
@@ -188,5 +213,9 @@ label{
 .span-short-details{
   width:50%;
   text-align: center;
+}
+
+.like-icon {
+  cursor: pointer;
 }
 </style>
