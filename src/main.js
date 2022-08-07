@@ -3,6 +3,8 @@ import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
 
+axios.defaults.withCredentials = true;
+
 import routes from "./routes";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
@@ -24,6 +26,8 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  ModalPlugin,
+  FormTextareaPlugin
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -36,6 +40,8 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  ModalPlugin,
+  FormTextareaPlugin
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
@@ -64,10 +70,22 @@ axios.interceptors.response.use(
 
 Vue.use(VueAxios, axios);
 
-Vue.config.productionTip = false;
+/* import all icons from src/assets/icons */
+import dislike from '../src/assets/icons/dislike.png'
+import like from '../src/assets/icons/like.png'
+import watched from '../src/assets/icons/watched.png'
+import vegan from '../src/assets/icons/vegan.png'
+import nowheat from '../src/assets/icons/nowheat.png'
+import gluten from '../src/assets/icons/gluten.png'
+import plantbased from '../src/assets/icons/plantbased.png'
+import hourglass from '../src/assets/icons/hourglass.png'
+import trending from '../src/assets/icons/trending.png'
 
+
+Vue.config.productionTip = false;
 const shared_data = {
   username: localStorage.username,
+  sessionLastSearch:{},
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
@@ -77,8 +95,21 @@ const shared_data = {
     console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
+    this.sessionLastSearch = {};
   },
+  
   server_domain: 'http://localhost:80',
+  iconsLinks : {
+    notFavorite: dislike,
+    favorite: like,
+    watched: watched,
+    vegan: vegan,
+    glutenFree: nowheat,
+    gluten: gluten,
+    vegeterian: plantbased,
+    readyInMinutes: hourglass,
+    popularity:trending,
+    }
 };
 console.log(shared_data);
 // Vue.prototype.$root.store = shared_data;

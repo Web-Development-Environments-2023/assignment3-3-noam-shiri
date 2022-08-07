@@ -1,40 +1,69 @@
-/<template>
+<template>
   <div>
     <router-link :to="{ name: 'recipe', params: { recipeId: recipe.id } }" class="recipe-preview">
       <div class="recipe-body">
         <div :title="recipe.title" class="recipe-title">
           {{ recipe.title }}
         </div>
-        <img v-if="image_load" :src="recipe.image" class="recipe-image" />
+        <img :src="recipe.image" class="recipe-image" />
       </div>
       <div class="recipe-footer">
         <ul class="recipe-overview">
           <li>
-            <img src="https://cdn-icons-png.flaticon.com/512/3867/3867499.png" class="icon-img"/>
+            <img :src="this.$root.store.iconsLinks.readyInMinutes" class="icon-img"/>
             <span class="span-short-details">{{ recipe.readyInMinutes }} min</span>
           </li>
           <li>
-            <img src="https://cdn-icons-png.flaticon.com/512/126/126473.png" class="icon-img"/>
+            <img :src="this.$root.store.iconsLinks.popularity" class="icon-img"/>
             <span class="span-short-details">{{ recipe.popularity }} likes</span>
           </li>
         </ul>
       </div>
     </router-link>
+    <b-row>
+      <b-col v-if="this.$root.store.username">
+        <img :src="this.likeIcon" class="icon-img like-icon" @click="addToFavorites"/>
+        <span class="span-short-details">{{this.likeText}}</span>
+      </b-col>
+      <b-col v-if="this.recipe.vegan">
+        <img :src="this.$root.store.iconsLinks.vegan" class="icon-img"/>
+      </b-col>
+      <b-col v-if="this.recipe.vegetarian">
+        <img :src="this.$root.store.iconsLinks.vegetarian" class="icon-img"/>
+      </b-col>
+      <b-col v-if="this.recipe.glutenFree">
+        <img :src="this.$root.store.iconsLinks.glutenFree" class="icon-img"/>
+      </b-col>
+      <b-col v-else>
+        <img :src="this.$root.store.iconsLinks.gluten" class="icon-img"/>
+      </b-col>
+      <b-col v-if="this.recipe.hasWatched">
+        <img :src="this.$root.store.iconsLinks.watched" class="icon-img"/>
+        <span class="span-short-details">Watched</span>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
 <script>
 export default {
   name: "RecipePreview",
-  mounted() {
-    this.axios.get(this.recipe.image).then((i) => {
-      this.image_load = true;
-    });
-  },
+  // mounted() {
+  //   this.axios.get(this.recipe.image).then((i) => {
+  //     this.image_load = true;
+  //   });
+  // },
   data() {
     return {
-      image_load: false
+      // image_load: false
+      likeIcon : this.$root.store.iconsLinks.notFavorite,
+      likeText : "Not Favorited"
     };
+  },
+  created() {
+    if (this.recipe.hasFavorited){
+      this.changeToLikeIcon();
+    }
   },
   props: {
     recipe: {
@@ -65,6 +94,28 @@ export default {
     //     return undefined;
     //   }
     // }
+  },
+  methods:{
+    changeToLikeIcon(){
+      this.likeIcon = this.$root.store.iconsLinks.favorite;
+      this.likeText = "Favorited"
+    },
+    async addToFavorites(){
+      const response = await this.axios.post(
+        // "https://test-for-3-2.herokuapp.com/users/favorites",
+        this.$root.store.server_domain + "/users/favorites",
+        {
+            recipe_id: this.recipe.id,
+        }
+      );
+      if (response.status==201){
+        this.recipe.hasFavorited = true;
+        this.changeToLikeIcon();
+      }
+      else{
+        console.log("error accured while favorite " + response.status);
+      }
+    },
   }
 };
 </script>
@@ -162,5 +213,9 @@ label{
 .span-short-details{
   width:50%;
   text-align: center;
+}
+
+.like-icon {
+  cursor: pointer;
 }
 </style>

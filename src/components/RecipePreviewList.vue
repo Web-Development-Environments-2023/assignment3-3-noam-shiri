@@ -1,6 +1,14 @@
 <template>
   <b-container>
-    <h3> {{ title }}: <slot></slot> </h3>
+    <b-row>
+      <b-col cols="6">
+        <h3> {{ title }}: <slot></slot></h3>
+      </b-col>
+      <b-col class="search-btn-div" cols="6">
+        <b-button class="sort-btn" v-if="title=='Search Results'" @click="sortByPreparationTime">Sort by preparation time</b-button>
+        <b-button class="sort-btn" v-if="title=='Search Results'" @click="sortByPopularity">Sort by popularity</b-button>
+      </b-col>
+    </b-row>
     <h5 v-if="title==='Random Recipes'"> Explore this recipes </h5>
     <div id="recipes-to-show" class="recipeList">
       <b-row>
@@ -54,10 +62,10 @@ export default {
             // "https://test-for-3-2.herokuapp.com/recipes/random"
           );
         }
-        else if (this.title==="Last Viewed Recipes" && this.$root.store.username){ // TO DO: check why there's problem with authentication!
+        else if (this.title==="Last Viewed Recipes" && this.$root.store.username){
             response = await this.axios.get(
             this.$root.store.server_domain + "/users/watched",
-            // "https://test-for-3-2.herokuapp.com//user/watched"
+            // "https://test-for-3-2.herokuapp.com//users/watched"
           );
         }
         else if (this.title==="Search Results" && Object.keys(this.searchForm).length != 0 && ( this.searchForm.keywords ||
@@ -102,6 +110,12 @@ export default {
       this.searchForm = formInfo;
       await this.updateRecipes();
     },
+    sortByPreparationTime(){
+      this.recipes = this.recipes.sort((a,b) => a.readyInMinutes-b.readyInMinutes);    
+    },
+    sortByPopularity(){
+      this.recipes = this.recipes.sort((a,b) => -(a.popularity-b.popularity));
+    }
   }
 };
 </script>
@@ -119,5 +133,12 @@ export default {
 #divRandomBtn{
   margin: 2%;
   text-align: center;
+}
+
+.sort-btn{
+  margin: 1%
+}
+.search-btn-div{
+  text-align: right;
 }
 </style>
