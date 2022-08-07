@@ -70,8 +70,19 @@ axios.interceptors.response.use(
 
 Vue.use(VueAxios, axios);
 
-Vue.config.productionTip = false;
+/* import all icons from src/assets/icons */
+import dislike from '../src/assets/icons/dislike.png'
+import like from '../src/assets/icons/like.png'
+import watched from '../src/assets/icons/watched.png'
+import vegan from '../src/assets/icons/vegan.png'
+import nowheat from '../src/assets/icons/nowheat.png'
+import gluten from '../src/assets/icons/gluten.png'
+import plantbased from '../src/assets/icons/plantbased.png'
+import hourglass from '../src/assets/icons/hourglass.png'
+import trending from '../src/assets/icons/trending.png'
 
+
+Vue.config.productionTip = false;
 const shared_data = {
   username: localStorage.username,
   sessionLastSearch:{},
@@ -89,15 +100,15 @@ const shared_data = {
   
   server_domain: 'http://localhost:80',
   iconsLinks : {
-    notFavorite: "https://cdn-icons-png.flaticon.com/512/833/833300.png",
-    favorite: "https://cdn-icons-png.flaticon.com/512/833/833472.png",
-    watched: "https://cdn-icons-png.flaticon.com/512/3308/3308898.png",
-    vegan:"https://cdn-icons.flaticon.com/png/512/5129/premium/5129836.png?token=exp=1659778350~hmac=a084dd569e5d6801e10e84f7fc69ea99",
-    glutenFree:"https://cdn-icons-png.flaticon.com/512/7312/7312801.png",
-    gluten:"https://cdn-icons-png.flaticon.com/512/7312/7312798.png",
-    vegeterian:"https://cdn-icons-png.flaticon.com/512/892/892917.png",
-    readyInMinutes:"https://cdn-icons-png.flaticon.com/512/3867/3867499.png",
-    popularity:"https://cdn-icons-png.flaticon.com/512/126/126473.png",
+    notFavorite: dislike,
+    favorite: like,
+    watched: watched,
+    vegan: vegan,
+    glutenFree: nowheat,
+    gluten: gluten,
+    vegeterian: plantbased,
+    readyInMinutes: hourglass,
+    popularity:trending,
     }
 };
 console.log(shared_data);
