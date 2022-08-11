@@ -65,11 +65,11 @@
           <b-col cols="8">
           </b-col>
           <b-col cols="2" class="btn-add">
-            <b-button variant="outline-primary" @click="onAddRow">+ Add Ingredient</b-button>
+            <b-button variant="outline-primary" @click="onAddIngredient">+ Add Ingredient</b-button>
           </b-col>
         </b-row>
         <ol>
-          <li v-for="index in numberOfRows" :key="index" class="ingredient-row">
+          <li v-for="index in numberOfIngredients" :key="index" class="copy-row">
               <b-col cols="12">
                 <b-row>
                   <b-col cols="5">
@@ -94,10 +94,22 @@
             </li>
         </ol>
       
-        <b-form-group id="input-group-instructions" label-cols-sm="2" label="Instructions:" label-for="instructions" >
-          <b-form-textarea id="instructions" v-model="form.instructions"
-              rows="3" max-rows="6"></b-form-textarea>
-        </b-form-group>
+        <b-row>
+          <b-col cols="2">
+              <label>Instructions:</label>
+          </b-col>
+          <b-col cols="8">
+          </b-col>
+          <b-col cols="2" class="btn-add">
+            <b-button variant="outline-primary" @click="onAddInstruction">+ Add Step</b-button>
+          </b-col>
+        </b-row>
+
+        <ol>
+          <li v-for="index in numberOfInstructions" :key="index" class="copy-row">
+            <b-form-input id="instructions" v-model="form.instructions[index-1]" type="text" class="instruction-class"></b-form-input>
+          </li>
+        </ol>
 
         <label :class="msgClass">{{msg}}</label>
 
@@ -128,13 +140,20 @@ export default {
         vegetarian: false,
         glutenFree: false,
         servings: "",
-        instructions: ""//req.body.instructions,
+        instructions: []
         /*recipeOwner: "",
         timePreparedInFamily: "",*/
       },
-      numberOfRows: 0,
       msg: "",
       msgClass:"error-msg"
+    }
+  },
+  computed: {
+    numberOfIngredients(){
+      return this.form.ingredients.length;
+    },
+    numberOfInstructions(){
+      return this.form.instructions.length;
     }
   },
   methods: {
@@ -157,7 +176,7 @@ export default {
           this.msgClass = "error-msg";
         }
       }
-      else{
+      else{ // update error label with current errors
         let errorMsg = "You must fill-in all info in: ";
         for (let i = 0; i < errors.length; i++){
           errorMsg += errors[i];
@@ -183,35 +202,59 @@ export default {
         errors.push("servings");
       if (this.form.image.trim().length===0)
         errors.push("image url");
+      // check ingredients:
       let goodIngredients = [...this.form.ingredients];
       let index_goodIngredients = 0;
-      for (let i = 0; i < this.form.ingredients.length; i++){
-        if (this.form.ingredients[i].ingredientName.trim().length===0 &&
-          this.form.ingredients[i].measuringTool.trim().length===0 &&
-          this.form.ingredients[i].amount.trim().length===0){
-            goodIngredients.splice(i,1); // remove empty rows
-            this.numberOfRows-=1;
-            continue;
-          }
-        else if (this.form.ingredients[i].ingredientName.trim().length===0 || // at least one is empty, not good - alert!
-          this.form.ingredients[i].measuringTool.trim().length===0 ||
-          this.form.ingredients[i].amount.trim().length===0){
-            errors.push("ingredient " + (index_goodIngredients+1));
-          }
-        index_goodIngredients+=1;
+      if (this.form.ingredients.length>0){
+        for (let i = 0; i < this.form.ingredients.length; i++){
+          if (this.form.ingredients[i].ingredientName.trim().length===0 &&
+            this.form.ingredients[i].measuringTool.trim().length===0 &&
+            this.form.ingredients[i].amount.trim().length===0){
+              goodIngredients.splice(i,1); // remove empty rows
+              continue;
+            }
+          else if (this.form.ingredients[i].ingredientName.trim().length===0 || // at least one is empty, not good - alert!
+            this.form.ingredients[i].measuringTool.trim().length===0 ||
+            this.form.ingredients[i].amount.trim().length===0){
+              errors.push("ingredient " + (index_goodIngredients+1));
+            }
+          index_goodIngredients+=1;
+        }
+        this.form.ingredients = goodIngredients;
+        if (this.form.ingredients.length===0){
+          errors.push("no ingredients were filled"); 
+        }
       }
-      this.form.ingredients = goodIngredients;
-      if (this.form.instructions.trim().length===0)
-        errors.push("instructions");
+      else{
+        errors.push("no ingredients were filled"); 
+      }
+      // check instructions and contcat them with <%> between steps:
+      let goodInstructions = [...this.form.instructions];
+      if (this.form.instructions.length>0){
+        for (let i = 0; i < this.form.instructions.length; i++){
+          if (this.form.instructions[i].trim().length===0){ //empty row
+            goodInstructions.splice(i,1);
+            continue; 
+          }
+        }
+        this.form.instructions = goodInstructions;
+        if (this.form.instructions.length===0){
+          errors.push("no instructions were filled"); 
+        }
+      }
+      else{
+        errors.push("no instructions were filled"); 
+      }
       return errors;
     },
-    onAddRow(){
-      this.numberOfRows+=1;
+    onAddIngredient(){
       this.form.ingredients.push({ingredientName:"",
                               measuringTool:"",
                               amount:""});
-      console.log(this.form.ingredients);
-    }
+    },
+    onAddInstruction(){
+      this.form.instructions.push("");
+    },
   }
 }
 </script>
@@ -227,13 +270,13 @@ export default {
     padding:5px;
   }
 
-  .ingredient-row{
+  .copy-row{
     margin-left:15%;
   }
 
   .checkboxes-diet-label{
     margin-left:10px;
-  }
+}
 
   .error-msg{
     color: red;
@@ -241,5 +284,9 @@ export default {
   
   .success-msg{
     color:green;
+  }
+
+  .instruction-class{
+    margin-bottom: 15px;
   }
 </style>

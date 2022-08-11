@@ -13,7 +13,7 @@
     <div id="recipes-to-show" class="recipeList">
       <b-row>
         <b-col cols="4" v-for="r in recipes" :key="r.id">
-          <RecipePreview class="recipePreview" :recipe="r" />
+          <RecipePreview class="recipePreview" :recipe="r" :isPrivateRecipe="isPrivateRecipe"/>
         </b-col>        
       </b-row>
     </div>
@@ -46,6 +46,7 @@ export default {
     return {
       recipes: [],
       searchForm: {},
+      isPrivateRecipe: false,
     };
   },
   mounted() {
@@ -88,6 +89,12 @@ export default {
             document.getElementById('divSearchNoResults').style.display='none';
             document.getElementById('recipes-to-show').style.display='';
           }
+        }
+        else if(this.title=="Added Recipes"){
+          response = await this.axios.get(this.$root.store.server_domain +"/users/added");
+          this.isPrivateRecipe = true;
+          // console.log(response.data);
+          // return;
         }
         else{ // no request matches 
           // response = {data:{}};
