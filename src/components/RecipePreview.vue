@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link :to="{ name: 'recipe', params: { recipeId: recipe.id } }" class="recipe-preview">
+    <router-link :to="{ name: 'recipe', params: { recipeId: recipe.id, private: isPrivateRecipe }}" class="recipe-preview">
       <div class="recipe-body">
         <div :title="recipe.title" class="recipe-title">
           {{ recipe.title }}
@@ -13,7 +13,7 @@
             <img :src="this.$root.store.iconsLinks.readyInMinutes" class="icon-img"/>
             <span class="span-short-details">{{ recipe.readyInMinutes }} min</span>
           </li>
-          <li>
+          <li v-if="!isPrivateRecipe">
             <img :src="this.$root.store.iconsLinks.popularity" class="icon-img"/>
             <span class="span-short-details">{{ recipe.popularity }} likes</span>
           </li>
@@ -21,7 +21,7 @@
       </div>
     </router-link>
     <b-row>
-      <b-col v-if="this.$root.store.username">
+      <b-col v-if="this.$root.store.username && !isPrivateRecipe">
         <img :src="this.likeIcon" class="icon-img like-icon" @click="addToFavorites"/>
         <span class="span-short-details">{{this.likeText}}</span>
       </b-col>
@@ -37,7 +37,7 @@
       <b-col v-else>
         <img :src="this.$root.store.iconsLinks.gluten" class="icon-img"/>
       </b-col>
-      <b-col v-if="this.recipe.hasWatched">
+      <b-col v-if="this.recipe.hasWatched  && !isPrivateRecipe">
         <img :src="this.$root.store.iconsLinks.watched" class="icon-img"/>
         <span class="span-short-details">Watched</span>
       </b-col>
@@ -58,7 +58,7 @@ export default {
       // image_load: false
       likeIcon : this.$root.store.iconsLinks.notFavorite,
       likeText : "Not Favorited"
-    };
+      };
   },
   created() {
     if (this.recipe.hasFavorited){
@@ -69,6 +69,11 @@ export default {
     recipe: {
       type: Object,
       required: true
+    },
+    isPrivateRecipe:{
+      type: Boolean,
+      required: false,
+      default: false
     }
 
     // id: {

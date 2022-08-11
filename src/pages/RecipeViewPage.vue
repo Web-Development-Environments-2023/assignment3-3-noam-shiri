@@ -3,7 +3,7 @@
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.title }}</h1>
-        <div v-if="recipe.hasWatched">
+        <div v-if="recipe.hasWatched && !this.$route.params.private">
           <img :src=this.$root.store.iconsLinks.watched class="icon-img"/>
           <label>"You already watched this recipe"</label>
         </div>
@@ -13,13 +13,13 @@
         <div class="wrapper">
           <div class="wrapped">
             <div class="mb-3">
-              <div>
+              <div v-if="!this.$route.params.private">
                 <img :src="this.likeIcon" class="icon-img like-icon" @click="addToFavorites()"/>
                 <label>{{likeText}}</label>
               </div>
               <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
               <div>Servings: {{ recipe.servings }} dishes</div>
-              <div>Likes: {{ recipe.aggregateLikes }} likes</div>
+              <div v-if="!this.$route.params.private">Likes: {{ recipe.aggregateLikes }} likes</div>
               <div>
                 <img v-if="recipe.vegan"  class="icon-img">
                 <img v-if="recipe.glutenFree" :src="this.$root.store.iconsLinks.glutenFree"  class="icon-img">
@@ -72,13 +72,26 @@ export default {
       // response = this.$route.params.response;
       //this.$root.store.user_id = 3;
       try {
-        response = await this.axios.get(
-          // "https://test-for-3-2.herokuapp.com/recipes/info",
-          this.$root.store.server_domain + "/recipes/" + this.$route.params.recipeId,
-          {
-            params: { recipe_id: this.$route.params.recipeId },
-          }
-        );
+        if (this.$route.params.private){ // redirectTitle????
+          response = await this.axios.get(
+            // "https://test-for-3-2.herokuapp.com/recipes/info",
+            this.$root.store.server_domain + "/users/" + this.$route.params.recipeId,
+            {
+              params: { recipe_id: this.$route.params.recipeId },
+            }
+          );
+          console.log(response.data);
+          //return;
+        }
+        else{
+          response = await this.axios.get(
+            // "https://test-for-3-2.herokuapp.com/recipes/info",
+            this.$root.store.server_domain + "/recipes/" + this.$route.params.recipeId,
+            {
+              params: { recipe_id: this.$route.params.recipeId },
+            }
+          );
+        }
         console.log(response);
         // console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
@@ -87,6 +100,7 @@ export default {
         this.$router.replace("/NotFound");
         return;
       }
+      console.log(response.data);
       let {
         id,
         title,
@@ -103,12 +117,19 @@ export default {
         instructions,
         extendedIngredients, 
       } = response.data;
-      let _instructions = analyzedInstructions
-        .map((fstep) => {
-          fstep.steps[0].step = fstep.name + fstep.steps[0].step;
-          return fstep.steps;
-        })
-        .reduce((a, b) => [...a, ...b], []);
+      var _instructions;
+      if (!this.$route.params.private){
+        _instructions = analyzedInstructions
+          .map((fstep) => {
+            fstep.steps[0].step = fstep.name + fstep.steps[0].step;
+            return fstep.steps;
+          })
+          .reduce((a, b) => [...a, ...b], []);        
+      }
+      else{
+        _instructions = instructions;
+      }
+
       let _recipe = {
         instructions,
         _instructions,
