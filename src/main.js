@@ -27,10 +27,12 @@ import {
   ToastPlugin,
   LayoutPlugin,
   ModalPlugin,
-  FormTextareaPlugin
+  FormTextareaPlugin,
+  FormFilePlugin
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
+  FormFilePlugin,
   FormPlugin,
   FormInputPlugin,
   ButtonPlugin,
