@@ -13,13 +13,10 @@
         Hello {{ $root.store.username }}:
         <b-dropdown id="private-for-user" offset="25" variant="primary" text="Personal">
           <b-dropdown-item> 
-            <router-link :to="{ name: 'favorite'}">My Favorite Recipes</router-link>
-          </b-dropdown-item>
-          <b-dropdown-item href=""> 
-            <RecipeCreator/>
+            <router-link :to="{ name: 'favorite'}">Favorites</router-link>
           </b-dropdown-item>
           <b-dropdown-item> 
-            <router-link :to="{ name: 'added'}">Recipes I Created</router-link>
+            <router-link :to="{ name: 'added'}">My Recipes</router-link>
           </b-dropdown-item>
           <b-dropdown-item> 
             <router-link :to="{ name: 'family'}">My Family Recipes</router-link>
@@ -33,7 +30,6 @@
 </template>
 
 <script>
-import RecipeCreator from './pages/RecipeCreator.vue';
 export default {
     name: "App",
     methods: {
@@ -53,7 +49,6 @@ export default {
             }
         }
     },
-    components: { RecipeCreator }
 };
 </script>
 
