@@ -1,6 +1,8 @@
 <template>
 <div id="wrapper">
-  <label id="openModal" v-b-modal.modal-id>Create New Recipe</label>
+  <div id="openModalDiv">  
+    <b-button id="openModal" v-b-modal.modal-id> + Add New Recipe</b-button>
+  </div>
   <b-container class="container">
     <b-modal id="modal-id" title="Create New Recipe" size="xl" ok-only>
       <b-form @submit.prevent="onSave">
@@ -288,5 +290,9 @@ export default {
 
   .instruction-class{
     margin-bottom: 15px;
+  }
+
+  #openModalDiv{
+    text-align: right;
   }
 </style>
