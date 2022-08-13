@@ -7,7 +7,7 @@
           <img :src=this.$root.store.iconsLinks.watched class="icon-img"/>
           <label>"You already watched this recipe"</label>
         </div>
-        <img :src="recipe.image" class="center" />
+        <img :src="recipe.image" class="center" style="max-height: 50%;" />
       </div>
       <div class="recipe-body">
         <div class="wrapper">
@@ -16,6 +16,10 @@
               <div v-if="!this.$route.params.private">
                 <img :src="this.likeIcon" class="icon-img like-icon" @click="addToFavorites()"/>
                 <label>{{likeText}}</label>
+              </div>
+              <div v-if="this.$route.params.private">
+              <div>Recipe owner: {{ recipe.recipeOwner }}</div>
+              <div>Time prepared in family: {{ recipe.timePreparedInFamily }}</div>
               </div>
               <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
               <div>Servings: {{ recipe.servings }} dishes</div>
@@ -104,18 +108,20 @@ export default {
       let {
         id,
         title,
-        readyInMinutes,
         image, 
+        readyInMinutes,
+        aggregateLikes,
+        glutenFree,
         vegan,
         vegetarian,
-        glutenFree,
-        aggregateLikes,
         hasWatched,
         hasFavorited,
         servings,
         analyzedInstructions,
         instructions,
-        extendedIngredients, 
+        extendedIngredients,
+        recipeOwner,
+        timePreparedInFamily
       } = response.data;
       var _instructions;
       if (!this.$route.params.private){
@@ -145,6 +151,8 @@ export default {
         glutenFree,
         hasWatched,
         hasFavorited,
+        recipeOwner,
+        timePreparedInFamily,
         id
       };
       this.recipe = _recipe;
