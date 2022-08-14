@@ -35,5 +35,4 @@ export default {
 .btn-secondary:hover{
   background-color: #8c6565;
 }
-
 </style>

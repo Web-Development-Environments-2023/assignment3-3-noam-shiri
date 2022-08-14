@@ -108,18 +108,20 @@ export default {
       let {
         id,
         title,
-        readyInMinutes,
         image, 
+        readyInMinutes,
+        aggregateLikes,
+        glutenFree,
         vegan,
         vegetarian,
-        glutenFree,
-        aggregateLikes,
         hasWatched,
         hasFavorited,
         servings,
         analyzedInstructions,
         instructions,
-        extendedIngredients, 
+        extendedIngredients,
+        recipeOwner,
+        timePreparedInFamily
       } = response.data;
       var _instructions;
       if (!this.$route.params.private){
@@ -149,6 +151,8 @@ export default {
         glutenFree,
         hasWatched,
         hasFavorited,
+        recipeOwner,
+        timePreparedInFamily,
         id
       };
       this.recipe = _recipe;
