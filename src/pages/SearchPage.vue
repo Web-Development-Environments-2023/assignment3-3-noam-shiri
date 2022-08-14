@@ -1,8 +1,10 @@
 <template>
   <div class="container">
-    <h1 class="title">Search Page</h1>
     <div id="div-wrapper">
       <b-form @submit.prevent="onSearch" @keyup.enter="onSearch" id="form-wrapper">
+        <b-row>
+          <h3>Type your search keywords here:</h3>
+        </b-row>
         <b-row>
           <b-col cols="12">
             <b-form-group id="input-group-Keywords" label-cols-sm="2" label="Keywords:" label-for="Keywords">
@@ -49,13 +51,13 @@
         </b-row>
         <b-row>  
           <b-col cols="12">
-            <b-button type="submit" variant="primary" class="mx-auto w-100" :disabled="!this.form.keywords &&
+            <b-button type="submit" variant="primary" class="w-100 btn-submit" :disabled="!this.form.keywords &&
                 !this.form.cuisine && !this.form.diet && !this.form.intolerances && !this.form.number">Search</b-button>
           </b-col>
         </b-row>
       </b-form>
       <div id="divLastSearch">
-        <h3>Last Time You Searched:</h3>
+        <h3>Last Time You Found:</h3>
         <div v-if="Object.keys($root.store.sessionLastSearch).length>0" id="exist-last-search">
           <b-row v-if="$root.store.sessionLastSearch.keywords!=undefined">
             <label class="search-headers">Keywords: </label>
@@ -158,10 +160,9 @@ export default {
       if (this.form.number===""){
         this.form.number = undefined
       }
-      console.log(this.form);
-      console.log(this.$root.store.sessionLastSearch);
       await this.$refs.searchChildComp.changeSearchProps(this.form);
       this.$root.store.sessionLastSearch = {...this.form};
+      // this.$root.store.sessionLastSearchResults = 
       //this.lastSearch = this.$root.store.sessionLastSearch;
     },
     // async getLastSearch(){
@@ -186,9 +187,10 @@ export default {
 }
 #form-wrapper{
   width:60%;
-  background-color: rgb(230, 222, 252);  
+  background-color: #dec1c1;
   padding: 30px;
   margin: 3px;
+  border-radius: 50px;
 
 }
 #divLastSearch{
@@ -196,9 +198,10 @@ export default {
   border: 2px;
   border-color: black;
   padding: 30px;
-  background-color: rgb(144, 135, 168);
+  background-color: #f2dce0;
   margin: 3px;
   text-align: center;
+  border-radius: 50px;
 }
 
 #exist-last-search{
@@ -206,12 +209,12 @@ export default {
 }
 
 .search-headers{
-  color:rgb(230, 222, 252);  
+  color: #8c6565;  
   font-size: 20px;
 }
 
 .search-content{
-  color:white;
+  color: #c1acac;
   font-size: 20px;
   margin-left: 2%;
 }
@@ -221,8 +224,51 @@ export default {
 }
 
 #divSearchRes{
-  background-color: rgb(178, 173, 190);  
+  background-color: #c1acac;;  
+  border-radius: 50px;
   margin: 3px;
   padding: 30px;
+}
+
+.form-control{
+  background-color: #fffafb;
+  border-radius: 10px;
+  width:460px;
+  margin-left:30px;
+}
+
+.custom-select{
+  background-color: #fffafb;
+  border-radius: 10px;  
+  width:150px;
+  margin-left:30px;
+}
+
+.btn-submit{
+  background-color: #594545;
+  border-color: #545b62;
+}
+.btn-submit:hover{
+  background-color: #8c6565;
+  border-color: #545b62;
+}
+.btn-submit:disabled{
+  background-color: #8c6565;
+  border-color: #545b62;
+}
+
+.btn-submit:focus{
+  background-color: #f2bdc7;
+  border-color: #545b62;
+} 
+
+h3{
+  font-size: 30px;
+  font-family: cursive;
+  color: #594545;
+  text-align: center;
+}
+form h3{
+  margin-left:13%;
 }
 </style>

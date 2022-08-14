@@ -40,12 +40,12 @@
         type="submit"
         variant="primary"
         style="width:100px;display:block;"
-        class="mx-auto w-100"
+        class="mx-auto w-100 btn-submit"
         >Login</b-button
       >
       <div class="mt-2">
-        Do not have an account yet?
-        <router-link to="register"> Register in here</router-link>
+        Do not have an account?
+        <router-link to="register" class="sign-opt"> <b>Register in here</b></router-link>
       </div>
     </b-form>
     <b-alert
@@ -129,6 +129,46 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container {
-  max-width: 400px;
+  width: 500px;
+  background-color: #f2dce0;
+  padding: 30px;
+  text-align: center;  
+  margin-top: 10%;
+  border-radius: 50px;
+}
+
+.form-control{
+  background-color: #fffafb;
+  border-radius: 10px;
+  width:300px
+}
+
+ .btn-submit{
+  background-color: #594545;
+  border-color: #545b62;
+}
+.btn-submit:hover{
+  background-color: #8c6565;
+  border-color: #545b62;
+} 
+
+.btn-submit:focus{
+  background-color: #f2bdc7;
+  border-color: #545b62;
+} 
+
+.sign-opt{
+  color: #8c6565;
+  margin-right:30px;
+}
+.sign-opt:hover{
+  color: #c1acac;
+}
+
+.title{
+    font-size: 40px;
+	  font-family: cursive;
+	  color: #594545;
+	  text-align: center;
 }
 </style>

@@ -3,35 +3,40 @@
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.title }}</h1>
+        <img :src="recipe.image" class="center recipe-image" />
         <div v-if="recipe.hasWatched && !this.$route.params.private">
           <img :src=this.$root.store.iconsLinks.watched class="icon-img"/>
-          <label>"You already watched this recipe"</label>
+          <label>You already watched this recipe</label>
         </div>
-        <img :src="recipe.image" class="center" style="max-height: 50%;" />
       </div>
       <div class="recipe-body">
+        <b-row class="about-row">
+          <b-col v-if="!this.$route.params.private">
+            <img :src="this.likeIcon" class="icon-img like-icon more-icon" @click="addToFavorites()"/>
+            <label>{{likeText}}</label>
+          </b-col>
+          <b-col>
+            <img :src="this.$root.store.iconsLinks.readyInMinutes" class="icon-img more-icon"/>
+            {{ recipe.readyInMinutes }} min
+          </b-col>
+          <b-col>
+            {{ recipe.servings }} 
+            <img :src="this.$root.store.iconsLinks.dishes" class="icon-img more-icon"/>
+          </b-col>
+          <b-col v-if="!this.$route.params.private">
+            {{ recipe.aggregateLikes }}
+            <img :src="this.$root.store.iconsLinks.thumbs_up" class="icon-img more-icon"/>
+          </b-col>
+          <b-col>
+            <img v-if="recipe.vegan"  class="icon-img">
+            <img v-if="recipe.glutenFree" :src="this.$root.store.iconsLinks.glutenFree"  class="icon-img">
+            <img v-else :src="this.$root.store.iconsLinks.gluten" class="icon-img"/>
+            <img v-if="recipe.vegeterian" :src="this.$root.store.iconsLinks.vegeterian" class="icon-img">
+          </b-col>
+        </b-row>
         <div class="wrapper">
           <div class="wrapped">
-            <div class="mb-3">
-              <div v-if="!this.$route.params.private">
-                <img :src="this.likeIcon" class="icon-img like-icon" @click="addToFavorites()"/>
-                <label>{{likeText}}</label>
-              </div>
-              <div v-if="this.$route.params.private">
-              <div>Recipe owner: {{ recipe.recipeOwner }}</div>
-              <div>Time prepared in family: {{ recipe.timePreparedInFamily }}</div>
-              </div>
-              <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-              <div>Servings: {{ recipe.servings }} dishes</div>
-              <div v-if="!this.$route.params.private">Likes: {{ recipe.aggregateLikes }} likes</div>
-              <div>
-                <img v-if="recipe.vegan"  class="icon-img">
-                <img v-if="recipe.glutenFree" :src="this.$root.store.iconsLinks.glutenFree"  class="icon-img">
-                <img v-else :src="this.$root.store.iconsLinks.gluten" class="icon-img"/>
-                <img v-if="recipe.vegeterian" :src="this.$root.store.iconsLinks.vegeterian" class="icon-img">
-              </div>
-            </div>
-            Ingredients:
+            <h3>Ingredients:</h3>
             <ul>
               <li
                 v-for="(r, index) in recipe.extendedIngredients"
@@ -42,7 +47,7 @@
             </ul>
           </div>
           <div class="wrapped">
-            Instructions:
+            <h3>Instructions:</h3>
             <ol>
               <li v-for="s in recipe._instructions" :key="s.number">
                 {{ s.step }}
@@ -51,11 +56,6 @@
           </div>
         </div>
       </div>
-      <!-- <pre>
-      {{ $route.params }}
-      {{ recipe }}
-    </pre
-      > -->
     </div>
   </div>
 </template>
@@ -207,6 +207,12 @@ export default {
 }
 .wrapped {
   width: 50%;
+  background-color:#c1acac;
+  margin-right: 1%;
+  margin-left: 1%; 
+  padding: 30px;
+  margin: 6px;
+  border-radius: 50px;
 }
 .center {
   display: block;
@@ -215,12 +221,9 @@ export default {
   width: 50%;
 }
 
-h1{
-  text-align: center;
+.recipe-header{
+text-align: center;
 }
-/* .recipe-header{
-
-} */
 
 .icon-img {
   width: 30px;
@@ -229,5 +232,38 @@ h1{
 
 .like-icon {
   cursor: pointer;
+}
+
+.more-icon{
+  padding:1%;
+  margin-right: 5%;
+}
+
+h1{
+  font-size: 40px;
+  font-family: cursive;
+  color: #594545;
+  text-align: center;
+}
+
+h3{
+  font-family: cursive;
+  color: #594545;
+  text-align: center;
+}
+
+.recipe-image{
+  border-radius: 30px;
+  border: 5px solid #f2bdc7;
+}
+
+.about-row{
+  text-align: center;
+  padding-left:5%;
+  padding-right:5%;
+  background-color: #f2dce0;
+  padding: 15px;
+  margin: 15px;
+  border-radius: 50px;
 }
 </style>

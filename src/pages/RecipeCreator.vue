@@ -119,7 +119,7 @@
           type="submit"
           variant="primary"
           style="width:100px;display:block;"
-          class="mx-auto w-100"
+          class="mx-auto w-100 btn-secondary"
           >Save Recipe
         </b-button>
       </b-form>
@@ -295,4 +295,17 @@ export default {
   #openModalDiv{
     text-align: right;
   }
+
+  .form-control{
+    width: 100%;
+    text-align: left;
+    margin-left: 0%;
+  }
+
+  	.btn-secondary{
+	  background-color: #594545;
+	}
+	.btn-secondary:hover{
+	  background-color: #8c6565;
+	}
 </style>

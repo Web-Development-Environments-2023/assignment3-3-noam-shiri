@@ -1,12 +1,12 @@
 <template>
   <b-container>
     <b-row>
-      <b-col cols="6">
-        <h3> {{ title }}: <slot></slot></h3>
+      <b-col>
+        <h3 id="page-title"> {{ title }}: <slot></slot></h3>
       </b-col>
-      <b-col class="search-btn-div" cols="6">
-        <b-button class="sort-btn" v-if="title=='Search Results'" @click="sortByPreparationTime">Sort by preparation time</b-button>
-        <b-button class="sort-btn" v-if="title=='Search Results'" @click="sortByPopularity">Sort by popularity</b-button>
+      <b-col class="search-btn-div" v-if="title=='Search Results'">
+        <b-button class="sort-btn" @click="sortByPreparationTime">Sort by preparation time</b-button>
+        <b-button class="sort-btn" @click="sortByPopularity">Sort by popularity</b-button>
       </b-col>
     </b-row>
     <h5 v-if="title==='Random Recipes'"> Explore this recipes </h5>
@@ -154,5 +154,25 @@ export default {
 }
 .search-btn-div{
   text-align: right;
+}
+
+.btn-secondary{
+  background-color: #594545;
+}
+
+.btn-secondary:hover{
+  background-color: #8c6565;
+}
+
+#page-title{
+  font-size: 40px;
+  font-family: cursive;
+  color: #594545;
+  text-align: center;
+}
+
+h5{
+  text-align: center;
+  color: white;
 }
 </style>

@@ -1,45 +1,48 @@
 <template>
   <div>
-    <router-link :to="{ name: 'recipe', params: { recipeId: recipe.id, private: isPrivateRecipe }}" class="recipe-preview">
-      <div class="recipe-body">
-        <div :title="recipe.title" class="recipe-title">
-          {{ recipe.title }}
-        </div>
-        <img :src="recipe.image" class="recipe-image" />
-      </div>
-      <div class="recipe-footer">
-        <ul class="recipe-overview">
-          <li>
-            <img :src="this.$root.store.iconsLinks.readyInMinutes" class="icon-img"/>
-            <span class="span-short-details">{{ recipe.readyInMinutes }} min</span>
-          </li>
-          <li v-if="!isPrivateRecipe">
-            <img :src="this.$root.store.iconsLinks.popularity" class="icon-img"/>
-            <span class="span-short-details">{{ recipe.popularity }} likes</span>
-          </li>
-        </ul>
-      </div>
-    </router-link>
     <b-row>
-      <b-col v-if="this.$root.store.username && !isPrivateRecipe">
-        <img :src="this.likeIcon" class="icon-img like-icon" @click="addToFavorites"/>
-        <span class="span-short-details">{{this.likeText}}</span>
+      <b-col cols="2" class="div-more-icon">
+        <b-col v-if="this.$root.store.username && !isPrivateRecipe">
+          <img :src="this.likeIcon" class="icon-img like-icon" @click="addToFavorites"/>
+          <span class="span-short-details"></span>
+        </b-col>
+        <b-col v-if="this.recipe.vegan">
+          <img :src="this.$root.store.iconsLinks.vegan" class="icon-img"/>
+        </b-col>
+        <b-col v-if="this.recipe.vegetarian">
+          <img :src="this.$root.store.iconsLinks.vegetarian" class="icon-img"/>
+        </b-col>
+        <b-col v-if="this.recipe.glutenFree">
+          <img :src="this.$root.store.iconsLinks.glutenFree" class="icon-img"/>
+        </b-col>
+        <b-col v-else>
+          <img :src="this.$root.store.iconsLinks.gluten" class="icon-img"/>
+        </b-col>
+        <b-col v-if="this.recipe.hasWatched  && !isPrivateRecipe">
+          <img :src="this.$root.store.iconsLinks.watched" class="icon-img"/>
+        </b-col>
       </b-col>
-      <b-col v-if="this.recipe.vegan">
-        <img :src="this.$root.store.iconsLinks.vegan" class="icon-img"/>
+
+      <b-col cols="10">
+        <router-link :to="{ name: 'recipe', params: { recipeId: recipe.id, private: isPrivateRecipe }}" class="recipe-preview">
+          <div class="recipe-body">
+            <div :title="recipe.title" class="recipe-title">
+              {{ recipe.title }}
+            </div>
+            <img :src="recipe.image" class="recipe-image" />
+          </div>
+        </router-link>
       </b-col>
-      <b-col v-if="this.recipe.vegetarian">
-        <img :src="this.$root.store.iconsLinks.vegetarian" class="icon-img"/>
+    </b-row>
+
+    <b-row class="recipe-footer recipe-overview">
+      <b-col>
+        <img :src="this.$root.store.iconsLinks.readyInMinutes" class="icon-img"/>
+        <span class="span-short-details">{{ recipe.readyInMinutes }} min</span>
       </b-col>
-      <b-col v-if="this.recipe.glutenFree">
-        <img :src="this.$root.store.iconsLinks.glutenFree" class="icon-img"/>
-      </b-col>
-      <b-col v-else>
-        <img :src="this.$root.store.iconsLinks.gluten" class="icon-img"/>
-      </b-col>
-      <b-col v-if="this.recipe.hasWatched  && !isPrivateRecipe">
-        <img :src="this.$root.store.iconsLinks.watched" class="icon-img"/>
-        <span class="span-short-details">Watched</span>
+      <b-col v-if="!isPrivateRecipe">
+        <img :src="this.$root.store.iconsLinks.popularity" class="icon-img"/>
+        <span class="span-short-details">{{ recipe.popularity }} likes</span>
       </b-col>
     </b-row>
   </div>
@@ -132,6 +135,7 @@ export default {
   height: 100%;
   position: relative;
   margin: 10px 10px;
+  margin-bottom: 0%;
 }
 .recipe-preview > .recipe-body {
   width: 100%;
@@ -144,20 +148,18 @@ export default {
   margin-top: auto;
   margin-bottom: auto;
   display: block;
-  width: 98%;
+  width: 100%;
   height: auto;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
 }
-.recipe-preview .recipe-footer {
-  width: 100%;
+/* .recipe-preview .recipe-footer {
   height: 50%;
   overflow: hidden;
-}
+} */
 .recipe-preview .recipe-footer .recipe-title {
   padding: 10px 10px;
-  width: 100%;
   font-size: 12pt;
   text-align: left;
   white-space: nowrap;
@@ -172,6 +174,13 @@ export default {
     white-space: nowrap;
     overflow: hidden !important;
     text-overflow: ellipsis;
+    /* font-size: 20px;*/
+    font-family: cursive; 
+    color: #8c6565;
+}
+.recipe-title:hover{
+  color: #594545;
+    text-decoration:none;
 }
 
 .recipe-preview .recipe-footer ul.recipe-overview {
@@ -191,6 +200,7 @@ export default {
   flex: 1 auto;
   table-layout: fixed;
   margin-bottom: 0px;
+  font-size: 15px;
 }
 .recipe-preview .recipe-footer ul.recipe-overview li {
   -webkit-box-flex: 1;
@@ -205,9 +215,15 @@ export default {
   text-align: center;
 }
 
+.recipe-footer{
+  color: #8c6565;
+  text-align: center;
+}
+
 .icon-img {
   width: 25px;
   margin: 1%;
+  padding: 2%;
 }
 
 label{
@@ -222,5 +238,17 @@ label{
 
 .like-icon {
   cursor: pointer;
+}
+
+.recipe-image{
+  border-radius: 20px;
+}
+
+.recipe-image:hover{
+    border: 5px solid #f2bdc7;
+}
+
+.div-more-icon{
+  margin-top: 15%;
 }
 </style>

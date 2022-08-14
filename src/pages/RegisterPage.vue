@@ -76,6 +76,7 @@
           id="country"
           v-model="$v.form.country.$model"
           :options="countries"
+          class="form-control"
           :state="validateState('country')"
         ></b-form-select>
         <b-form-invalid-feedback>
@@ -172,6 +173,7 @@
           placeholder="Choose a file or drop it here..."
           drop-placeholder="Drop file here..."
           accept="image/*"
+          class="form-control"
         ></b-form-file>
         <b-form-invalid-feedback v-if="!$v.form.profilePic.required">
           Profile picture is required
@@ -184,12 +186,12 @@
         type="submit"
         variant="primary"
         style="width:250px;"
-        class="ml-5 w-75"
+        class="ml-5 w-75 btn-submit"
         >Register</b-button
       >
-      <div class="mt-2">
+      <div class="mt-2" id="login-div">
         You have an account already?
-        <router-link to="login"> Log in here</router-link>
+        <router-link to="login" class="sign-opt"> <b>Log in here</b></router-link>
       </div>
     </b-form>
     <b-alert
@@ -340,7 +342,48 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+
+.title{
+    font-size: 40px;
+	  font-family: cursive;
+	  color: #594545;
+	  text-align: center;
+}
+
 .container {
-  max-width: 500px;
+  width: 600px;
+  background-color: #f2dce0;
+  padding: 30px;
+  text-align: left;  
+  margin-top: 10px;
+  border-radius: 50px;
+}
+
+.form-control{
+  background-color: #fffafb;
+  border-radius: 10px;
+  width:90%;
+  text-align:left;
+}
+
+.btn-submit{
+  background-color: #594545;
+  border-color: #545b62;
+}
+.btn-submit:hover{
+  background-color: #8c6565;
+  border-color: #545b62;
+} 
+
+.sign-opt{
+  color: #8c6565;
+  margin-right:30px;
+}
+.sign-opt:hover{
+  color: #c1acac;
+}
+
+#login-div{
+  text-align: center;
 }
 </style>
