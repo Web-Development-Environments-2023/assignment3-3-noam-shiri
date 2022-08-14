@@ -1,14 +1,14 @@
 <template>
   <div class="container">
-    <h1 class="title">Main Page</h1>
+    <!-- <h1 class="title">Main Page</h1> -->
     <div>
       <div id="divUser">
         <div v-if="!$root.store.username">
           <h1>Hello Guest!</h1>
-          <router-link to="/login">Click Here to Login</router-link>
+          <router-link id="login-opt" class="sign-opt" to="/login"><b>Click Here to Login</b></router-link>
           <br/>
-          <label>You don't have an account? 
-            <router-link to="/register">Click Here to Register</router-link>
+          <label id="register-opt">Do not have an account yet? 
+            <router-link to="/register" class="sign-opt" >Click Here to Register</router-link>
           </label>
         </div>        
         <RecipePreviewList v-else
@@ -54,23 +54,47 @@ export default {
   pointer-events: none;
   cursor: default;
 }
-// .wrapper {
-//   display: flex;
-// }
-// .wrapped {
-//   width: 50%;
-// }
 
 #divRandom{
-  background-color: rgb(144, 135, 168);
+  background-color: #c1acac;
   padding: 30px;
   margin: 6px;
+  border-radius: 50px;
 }
 
 #divUser{
-  background-color: rgb(230, 222, 252);
+  background-color: #f2dce0;
   padding: 30px;
   text-align: center;  
   margin: 6px;
+  border-radius: 50px;
+}
+
+h1{
+  font-size: 40px;
+  font-family: cursive;
+  color: #594545;
+}
+
+// .title{
+//   font-family: cursive;
+//   color: #54BAB9;
+  
+// }
+
+.sign-opt{
+  color: #8c6565;
+  margin-right:30px;
+}
+.sign-opt:hover{
+  color: #c1acac;
+}
+
+#register-opt{
+  padding: 2%;
+}
+
+#login-opt{
+  font-size: 20px;
 }
 </style>

@@ -82,12 +82,16 @@ import gluten from '../src/assets/icons/gluten.png'
 import plantbased from '../src/assets/icons/plantbased.png'
 import hourglass from '../src/assets/icons/hourglass.png'
 import trending from '../src/assets/icons/trending.png'
+import cooking from '../src/assets/icons/cooking.png'
+import dish from '../src/assets/icons/dish.png'
+import thumb from '../src/assets/icons/thumb.png'
 
 
 Vue.config.productionTip = false;
 const shared_data = {
   username: localStorage.username,
   sessionLastSearch:{},
+  sessionLastSearchResults:{},
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
@@ -97,7 +101,7 @@ const shared_data = {
     console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
-    this.sessionLastSearch = {};
+    this.sessionLastSearchResults = {};
   },
   
   server_domain: 'http://localhost:80',
@@ -108,9 +112,12 @@ const shared_data = {
     vegan: vegan,
     glutenFree: nowheat,
     gluten: gluten,
-    vegeterian: plantbased,
+    vegetarian: plantbased,
     readyInMinutes: hourglass,
     popularity:trending,
+    thumbs_up: thumb,
+    dishes: dish,
+    nav_icon: cooking,
     }
 };
 console.log(shared_data);
