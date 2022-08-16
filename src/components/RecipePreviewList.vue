@@ -123,6 +123,8 @@ export default {
     async changeSearchProps(formInfo){
       this.searchForm = formInfo;
       await this.updateRecipes();
+      console.log(this.recipes[0]);
+      return this.recipes[0];
     },
     sortByPreparationTime(){
       this.recipes = this.recipes.sort((a,b) => a.readyInMinutes-b.readyInMinutes);    
