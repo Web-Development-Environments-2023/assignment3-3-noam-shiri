@@ -38,11 +38,11 @@
     <b-row class="recipe-footer recipe-overview">
       <b-col>
         <img :src="this.$root.store.iconsLinks.readyInMinutes" class="icon-img"/>
-        <span class="span-short-details">{{ recipe.readyInMinutes }} min</span>
+        <span class="span-short-details">{{ recipe.readyInMinutes }} Minutes</span>
       </b-col>
       <b-col v-if="!isPrivateRecipe">
         <img :src="this.$root.store.iconsLinks.popularity" class="icon-img"/>
-        <span class="span-short-details">{{ recipe.popularity }} likes</span>
+        <span class="span-short-details">{{ recipe.popularity }} Likes</span>
       </b-col>
     </b-row>
   </div>
@@ -149,7 +149,7 @@ export default {
   margin-bottom: auto;
   display: block;
   width: 100%;
-  height: auto;
+  height: 80%;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
@@ -221,7 +221,7 @@ export default {
 }
 
 .icon-img {
-  width: 25px;
+  width: 35px;
   margin: 1%;
   padding: 2%;
 }
