@@ -28,10 +28,10 @@
             <img :src="this.$root.store.iconsLinks.thumbs_up" class="icon-img more-icon"/>
           </b-col>
           <b-col>
-            <img v-if="recipe.vegan"  class="icon-img">
-            <img v-if="recipe.glutenFree" :src="this.$root.store.iconsLinks.glutenFree"  class="icon-img">
-            <img v-else :src="this.$root.store.iconsLinks.gluten" class="icon-img"/>
+            <img v-if="recipe.vegan" :src="this.$root.store.iconsLinks.vegan" class="icon-img">
             <img v-if="recipe.vegeterian" :src="this.$root.store.iconsLinks.vegeterian" class="icon-img">
+            <img v-if="recipe.glutenFree" :src="this.$root.store.iconsLinks.glutenFree"  class="icon-img">
+            <img v-if="!recipe.glutenFree" :src="this.$root.store.iconsLinks.gluten" class="icon-img"/>
           </b-col>
         </b-row>
         <div class="wrapper">
@@ -159,6 +159,13 @@ export default {
       if (this.recipe.hasFavorited){ 
         this.changeToLikeIcon();
       }
+      console.log(!this.$route.params.private)
+      if (!this.$route.params.private){
+        response = await this.axios.post(
+          this.$root.store.server_domain + "/users/watched", 
+            { recipe_id: this.recipe.id },
+        );
+    }
     } catch (error) {
       console.log(error);
     }
@@ -166,16 +173,8 @@ export default {
 
   async beforeDestroy(){
     // add to watched!
-    if (!this.$route.params.private){
-      try{
-        response = await this.axios.post(
-          this.$root.store.server_domain + "/users/watched", 
-            { recipe_id: this.recipe.id },
-        );
-      }catch (err){
-        //console.log("err.response.status, can't save as watched: ", err.response.status); ??????????
-      }
-    }
+    console.log(!this.$route.params.private);
+
   },
 
   methods:{ 
