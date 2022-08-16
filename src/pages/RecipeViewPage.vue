@@ -28,10 +28,10 @@
             <img :src="this.$root.store.iconsLinks.thumbs_up" class="icon-img more-icon"/>
           </b-col>
           <b-col>
-            <img v-if="recipe.vegan"  class="icon-img">
-            <img v-if="recipe.glutenFree" :src="this.$root.store.iconsLinks.glutenFree"  class="icon-img">
-            <img v-else :src="this.$root.store.iconsLinks.gluten" class="icon-img"/>
+            <img v-if="recipe.vegan" :src="this.$root.store.iconsLinks.vegan" class="icon-img">
             <img v-if="recipe.vegeterian" :src="this.$root.store.iconsLinks.vegeterian" class="icon-img">
+            <img v-if="recipe.glutenFree" :src="this.$root.store.iconsLinks.glutenFree"  class="icon-img">
+            <img v-if="!recipe.glutenFree" :src="this.$root.store.iconsLinks.gluten" class="icon-img"/>
           </b-col>
         </b-row>
         <div class="wrapper">
