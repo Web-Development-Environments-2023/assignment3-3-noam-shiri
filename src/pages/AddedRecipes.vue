@@ -18,12 +18,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #div-added{
     background-color: #f2dce0;
-	  padding: 30px;
 	  text-align: center;  
-	  margin: 6px;
     margin-top:5%;
 	  border-radius: 50px;
 }

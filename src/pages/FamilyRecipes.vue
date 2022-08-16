@@ -21,3 +21,20 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.container{
+    background-color: #f2dce0;
+	  text-align: center;  
+    margin-top:5%;
+	  border-radius: 50px;
+}
+
+.btn-secondary{
+  background-color: #594545;
+  margin-top:2%;
+}
+.btn-secondary:hover{
+  background-color: #8c6565;
+}
+</style>
