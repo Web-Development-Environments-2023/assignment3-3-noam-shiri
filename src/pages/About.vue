@@ -137,7 +137,7 @@ h1{
 
 a{
   color: #c4a8a8;
-  margin-right:30px;
+  // margin-right:30px;
 }
 a:hover{
   color: #eeeeee;

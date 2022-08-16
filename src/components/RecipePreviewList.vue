@@ -12,7 +12,7 @@
     <h5 v-if="title==='Random Recipes'"> Explore this recipes </h5>
     <div id="recipes-to-show" class="recipeList">
       <b-row>
-        <b-col cols="4" v-for="r in recipes" :key="r.id">
+        <b-col :cols="count_cols" v-for="r in recipes" :key="r.id">
           <RecipePreview class="recipePreview" :recipe="r" :isPrivateRecipe="isPrivateRecipe"/>
         </b-col>        
       </b-row>
@@ -47,6 +47,7 @@ export default {
       recipes: [],
       searchForm: {},
       isPrivateRecipe: false,
+      count_cols: 4
     };
   },
   mounted() {
@@ -62,12 +63,14 @@ export default {
             this.$root.store.server_domain + "/recipes/random",
             // "https://test-for-3-2.herokuapp.com/recipes/random"
           );
+          this.count_cols=12;
         }
         else if (this.title==="Last Viewed Recipes" && this.$root.store.username){
             response = await this.axios.get(
             this.$root.store.server_domain + "/users/watched",
             // "https://test-for-3-2.herokuapp.com//users/watched"
           );
+          this.count_cols=12;
         }
         else if (this.title==="Family Recipes" && this.$root.store.username){
             response = await this.axios.get(
@@ -148,10 +151,10 @@ export default {
   min-height: 400px;
 }
 
-.recipePreview{
-  padding-top: 5%;
-  padding-left: 10%;
-}
+// .recipePreview{
+//   padding-top: 5%;
+//   padding-left: 10%;
+// }
 
 #divRandomBtn{
   margin: 2%;
