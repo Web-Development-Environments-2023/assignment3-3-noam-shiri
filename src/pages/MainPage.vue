@@ -1,7 +1,9 @@
 <template>
-  <div class="container">
+  <div class="container grid-container">
     <!-- <h1 class="title">Main Page</h1> -->
-    <div>
+      <div id="divRandom">
+        <RecipePreviewList title="Random Recipes" class="RandomRecipes center" />
+      </div>
       <div id="divUser">
         <div v-if="!$root.store.username">
           <h1>Hello Guest!</h1>
@@ -21,15 +23,6 @@
           disabled
         ></RecipePreviewList>     
       </div>
-        <div id="divRandom">
-          <RecipePreviewList title="Random Recipes" class="RandomRecipes center" />
-      </div>
-    </div>
-    <!-- <div
-      style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
-    >
-      Centeredasdasdad
-    </div>-->
   </div>
 </template>
 
@@ -60,6 +53,7 @@ export default {
   padding: 30px;
   margin: 6px;
   border-radius: 50px;
+
 }
 
 #divUser{
@@ -68,6 +62,7 @@ export default {
   text-align: center;  
   margin: 6px;
   border-radius: 50px;
+
 }
 
 h1{
@@ -81,6 +76,10 @@ h1{
 //   color: #54BAB9;
   
 // }
+
+#div-wrapper{
+  display: flex;
+}
 
 .sign-opt{
   color: #8c6565;
@@ -96,5 +95,11 @@ h1{
 
 #login-opt{
   font-size: 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
 }
 </style>
