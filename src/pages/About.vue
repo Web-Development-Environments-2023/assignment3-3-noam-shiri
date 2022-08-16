@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container about-div">
     <p></p>
-      <h1 class="center">About Us:</h1>
+      <h1 class="center our-info">About Us:</h1>
       <div class="row">
         <div class="column">
           <div class="card">
@@ -29,14 +29,14 @@
       </div>
     
     <div class="extra">
-      <h1 class="center">Links to previous exercises</h1>
+      <h1 class="center more-info">Links to previous exercises</h1>
       <li>Exercise 2:<a href="https://github.com/Web-Development-Environments-2022/assignment2-207777525_318267895">Click here</a></li>
       <li>Exercise 3.1:<a href="https://github.com/Noamcm/Recipe_Website">Click here</a></li>
       <li>Exercise 3.2:<a href="https://github.com/Web-Development-Environments-2022/assignment3_2-207777525_318267895">Click here</a></li>
       <li>Exercise 3.3:<a href="https://github.com/Web-Development-Environments-2022/assignment3-3-318267895_207777525">Click here</a></li>
     </div>   
     <p></p> 
-    <div class="extra">
+    <div class="extra more-info">
       <h1 class="center">Templates that we Used:</h1>
       <li>About us cards:<a href="https://www.w3schools.com/howto/howto_css_about_page.asp">Link</a></li>
       <li>Icons:<a href="https://www.flaticon.com/">flaticon</a> and<a href="https://www.canva.com/">canva</a></li>
@@ -70,6 +70,7 @@ body {
 html {
   box-sizing: border-box;
 }
+
 a {
   margin-left: 7px;
 }
@@ -110,6 +111,36 @@ a {
     width: 100%;
     display: block;
   }
+}
+
+.about-div{
+    background-color: #f2dce0;
+	  // text-align: center;  
+    margin-top:5%;
+	  border-radius: 50px;
+}
+
+h1{
+  font-size: 40px;
+  font-family: cursive;
+  text-align: center;
+}
+
+.our-info{
+  color: #594545;
+}
+
+.more-info{
+  color: #f2dce0;
+  margin-bottom: 10px;
+}
+
+a{
+  color: #c4a8a8;
+  margin-right:30px;
+}
+a:hover{
+  color: #eeeeee;
 }
 
 </style>
