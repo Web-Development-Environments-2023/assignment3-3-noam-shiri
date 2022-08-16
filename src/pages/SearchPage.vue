@@ -58,8 +58,9 @@
       </b-form>
       <div id="divLastSearch">
         <h3>Last Time You Found:</h3>
-        <div v-if="Object.keys($root.store.sessionLastSearch).length>0" id="exist-last-search">
-          <b-row v-if="$root.store.sessionLastSearch.keywords!=undefined">
+        <div v-if="Object.keys(this.lastSearch).length>0" id="exist-last-search">
+          <RecipePreview class="recipePreview" :recipe="this.lastSearch" :isPrivateRecipe="false"/>
+          <!-- <b-row v-if="$root.store.sessionLastSearch.keywords!=undefined">
             <label class="search-headers">Keywords: </label>
             <label class="search-content">{{$root.store.sessionLastSearch.keywords}}</label>
           </b-row>
@@ -78,7 +79,7 @@
           <b-row v-if="$root.store.sessionLastSearch.number!=undefined">
             <label class="search-headers">Number of results: </label>
             <label class="search-content">{{$root.store.sessionLastSearch.number}}</label>
-          </b-row>
+          </b-row> -->
         </div>
         <div v-else>
           <label>You don't have any search history - Start Searching! </label>
@@ -93,10 +94,13 @@
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
+import RecipePreview from "../components/RecipePreview.vue";
+
 export default {
   name: "SearchPage",
   components: {
-    RecipePreviewList
+    RecipePreviewList,
+    RecipePreview
   },
   data() {
     return {
@@ -130,20 +134,10 @@ export default {
                               {id: 10, value: 'Sulfite'}, {id: 11, value: 'Tree Nut'}, {id: 12, value: 'Wheat'}],
     };
   },
-  // computed:{
-  //   isLastSearchNotEmpty:{
-  //     get(){
-  //       return this.lastSearch.length>0;
-  //     },
-  //     set(){
-  //       isLastSearchNotEmpty = this.lastSearch.length>0;
-  //     }
-  //   }
-  // },
+  created(){
+    this.lastSearch = this.$root.store.sessionLastSearch;
+  },
   methods:{
-    // mounted(){
-    //   this.getLastSearch();
-    // },
     async onSearch(){
       if (this.form.keywords===""){
         this.form.keywords = undefined
@@ -160,23 +154,8 @@ export default {
       if (this.form.number===""){
         this.form.number = undefined
       }
-      await this.$refs.searchChildComp.changeSearchProps(this.form);
-      this.$root.store.sessionLastSearch = {...this.form};
-      // this.$root.store.sessionLastSearchResults = 
-      //this.lastSearch = this.$root.store.sessionLastSearch;
+      this.$root.store.sessionLastSearch = await this.$refs.searchChildComp.changeSearchProps(this.form);
     },
-    // async getLastSearch(){
-    //   /* TO DO: to check: */
-    //   try{
-    //     // maybe we don't need to get last search from db at all according to instuctions?????
-    //     let response = await this.axios.get(this.$root.store.server_domain + "/recipes/search");
-    //     this.lastSearch = response.data;
-    //     // TO DO: save last search somehow in browser
-    //   }
-    //   catch (error){
-    //     console.log(error);
-    //   }
-    // },
   }
 }
 </script>
@@ -270,5 +249,9 @@ h3{
 }
 form h3{
   margin-left:13%;
+}
+
+.recipePreview{
+  margin-right: 20%;
 }
 </style>
