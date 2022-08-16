@@ -71,15 +71,14 @@ axios.interceptors.response.use(
 );
 
 Vue.use(VueAxios, axios);
-
 /* import all icons from src/assets/icons */
 import dislike from '../src/assets/icons/dislike.png'
 import like from '../src/assets/icons/like.png'
 import watched from '../src/assets/icons/watched.png'
-import vegan from '../src/assets/icons/vegan.png'
-import nowheat from '../src/assets/icons/nowheat.png'
-import gluten from '../src/assets/icons/gluten.png'
-import plantbased from '../src/assets/icons/plantbased.png'
+import vegan from '../src/assets/icons/Vegan-removebg-preview.png'
+import nowheat from '../src/assets/icons/Gluten_Free-removebg-preview.png'
+import gluten from '../src/assets/icons/Has_Gluten-removebg-preview.png'
+import plantbased from '../src/assets/icons/Vegetarian-removebg-preview.png'
 import hourglass from '../src/assets/icons/hourglass.png'
 import trending from '../src/assets/icons/trending.png'
 import cooking from '../src/assets/icons/cooking.png'

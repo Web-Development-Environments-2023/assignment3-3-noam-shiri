@@ -72,9 +72,16 @@ export default {
         else if (this.title==="Family Recipes" && this.$root.store.username){
             response = await this.axios.get(
             this.$root.store.server_domain + "/users/family",
-            // "https://test-for-3-2.herokuapp.com//users/watched"
+            // "https://test-for-3-2.herokuapp.com//users/family"
           );          
           this.isPrivateRecipe = true;
+        }
+        else if (this.title==="Favorite Recipes" && this.$root.store.username){
+            response = await this.axios.get(
+            this.$root.store.server_domain + "/users/favorites",
+            // "https://test-for-3-2.herokuapp.com//users/favorites"
+          );          
+          this.isPrivateRecipe = false;
         }
         else if (this.title==="Search Results" && Object.keys(this.searchForm).length != 0 && ( this.searchForm.keywords ||
                   this.searchForm.cuisine || this.searchForm.diet || this.searchForm.intolerances || this.searchForm.number)){
