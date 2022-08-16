@@ -166,13 +166,15 @@ export default {
 
   async beforeDestroy(){
     // add to watched!
-    try{
-      response = await this.axios.post(
-        this.$root.store.server_domain + "/users/watched", 
-          { recipe_id: this.recipe.id },
-      );
-    }catch (err){
-      //console.log("err.response.status, can't save as watched: ", err.response.status); ??????????
+    if (!this.$route.params.private){
+      try{
+        response = await this.axios.post(
+          this.$root.store.server_domain + "/users/watched", 
+            { recipe_id: this.recipe.id },
+        );
+      }catch (err){
+        //console.log("err.response.status, can't save as watched: ", err.response.status); ??????????
+      }
     }
   },
 
