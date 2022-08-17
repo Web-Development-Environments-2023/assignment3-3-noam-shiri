@@ -29,7 +29,9 @@
           </b-col>
           <b-col>
             <img v-if="recipe.vegan" :src="this.$root.store.iconsLinks.vegan" class="icon-img">
+            <img v-if="!recipe.vegan" :src="this.$root.store.iconsLinks.notvegan" class="icon-img">
             <img v-if="recipe.vegetarian" :src="this.$root.store.iconsLinks.vegetarian" class="icon-img">
+            <img v-if="!recipe.vegetarian" :src="this.$root.store.iconsLinks.notvegetarian" class="icon-img">
             <img v-if="recipe.glutenFree" :src="this.$root.store.iconsLinks.glutenFree"  class="icon-img">
             <img v-if="!recipe.glutenFree" :src="this.$root.store.iconsLinks.gluten" class="icon-img"/>
           </b-col>
@@ -84,7 +86,7 @@ export default {
               params: { recipe_id: this.$route.params.recipeId },
             }
           );
-          console.log(response.data);
+          //console.log(response.data);
           //return;
         }
         else{
@@ -96,15 +98,15 @@ export default {
             }
           );
         }
-        console.log(response);
+        //console.log(response);
         // console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
-        console.log("error.response.status", error.response.status);
+        //console.log("error.response.status", error.response.status);
         this.$router.replace("/NotFound");
         return;
       }
-      console.log(response.data);
+      //console.log(response.data);
       let {
         id,
         title,
@@ -159,7 +161,7 @@ export default {
       if (this.recipe.hasFavorited){ 
         this.changeToLikeIcon();
       }
-      console.log(!this.$route.params.private)
+      //console.log(!this.$route.params.private)
       if (!this.$route.params.private){
         response = await this.axios.post(
           this.$root.store.server_domain + "/users/watched", 
@@ -167,13 +169,13 @@ export default {
         );
     }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   },
 
   async beforeDestroy(){
     // add to watched!
-    console.log(!this.$route.params.private);
+    //console.log(!this.$route.params.private);
 
   },
 
@@ -195,7 +197,7 @@ export default {
           this.changeToLikeIcon();
         }
         else{
-          console.log("error accured while favorite " + response.status);
+          //console.log("error accured while favorite " + response.status);
         }
       },
   }
@@ -227,7 +229,7 @@ text-align: center;
 }
 
 .icon-img {
-  width: 30px;
+  width: 50px;
   margin: 1%;
 }
 

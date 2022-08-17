@@ -125,7 +125,7 @@ export default {
         this.recipes.push(...recipes);
         // console.log(this.recipes);
       } catch (error) {
-        console.log(error);
+        //console.log(error);
         document.getElementById("divProblemWithServer").style.display='';
         document.getElementById('divSearchNoResults').style.display='none';
       }
@@ -133,7 +133,7 @@ export default {
     async changeSearchProps(formInfo){
       this.searchForm = formInfo;
       await this.updateRecipes();
-      console.log(this.recipes[0]);
+      //console.log(this.recipes[0]);
       return this.recipes[0];
     },
     sortByPreparationTime(){

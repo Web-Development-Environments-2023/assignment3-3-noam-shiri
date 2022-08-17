@@ -75,10 +75,12 @@ Vue.use(VueAxios, axios);
 import dislike from '../src/assets/icons/dislike.png'
 import like from '../src/assets/icons/like.png'
 import watched from '../src/assets/icons/watched.png'
-import vegan from '../src/assets/icons/Vegan-removebg-preview.png'
-import nowheat from '../src/assets/icons/Gluten_Free-removebg-preview.png'
-import gluten from '../src/assets/icons/Has_Gluten-removebg-preview.png'
-import plantbased from '../src/assets/icons/Vegetarian-removebg-preview.png'
+import vegan from '../src/assets/icons/Vegan.png'
+import notvegan from '../src/assets/icons/Not Vegan.png'
+import nowheat from '../src/assets/icons/Gluten Free.png'
+import gluten from '../src/assets/icons/Has Gluten.png'
+import vegetarian from '../src/assets/icons/Vegetarian.png'
+import notvegetarian from '../src/assets/icons/Not Vegetarian.png'
 import hourglass from '../src/assets/icons/hourglass.png'
 import trending from '../src/assets/icons/trending.png'
 import cooking from '../src/assets/icons/cooking.png'
@@ -94,24 +96,27 @@ const shared_data = {
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
-    console.log("login", this.username);
+    //console.log("login", this.username);
   },
   logout() {
-    console.log("logout");
+    //console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
     this.sessionLastSearchResults = {};
   },
   
   server_domain: 'http://localhost:80',
+  //server_domain: 'https://RecipesBySN.cs.bgu.ac.il:80',
   iconsLinks : {
     notFavorite: dislike,
     favorite: like,
     watched: watched,
     vegan: vegan,
+    notvegan: notvegan,
     glutenFree: nowheat,
     gluten: gluten,
-    vegetarian: plantbased,
+    vegetarian: vegetarian,
+    notvegetarian: notvegetarian,
     readyInMinutes: hourglass,
     popularity:trending,
     thumbs_up: thumb,
@@ -119,7 +124,7 @@ const shared_data = {
     nav_icon: cooking,
     }
 };
-console.log(shared_data);
+//console.log(shared_data);
 // Vue.prototype.$root.store = shared_data;
 
 new Vue({

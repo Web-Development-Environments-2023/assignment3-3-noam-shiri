@@ -9,13 +9,19 @@
         <b-col v-if="this.recipe.vegan">
           <img :src="this.$root.store.iconsLinks.vegan" class="icon-img"/>
         </b-col>
+        <b-col v-if="!this.recipe.vegan">
+          <img :src="this.$root.store.iconsLinks.notvegan" class="icon-img"/>
+        </b-col>
         <b-col v-if="this.recipe.vegetarian">
           <img :src="this.$root.store.iconsLinks.vegetarian" class="icon-img"/>
+        </b-col>
+        <b-col v-if="!this.recipe.vegetarian">
+          <img :src="this.$root.store.iconsLinks.notvegetarian" class="icon-img"/>
         </b-col>
         <b-col v-if="this.recipe.glutenFree">
           <img :src="this.$root.store.iconsLinks.glutenFree" class="icon-img"/>
         </b-col>
-        <b-col v-else>
+        <b-col v-if="!this.recipe.glutenFree">
           <img :src="this.$root.store.iconsLinks.gluten" class="icon-img"/>
         </b-col>
         <b-col v-if="this.recipe.hasWatched  && !isPrivateRecipe">
@@ -121,7 +127,7 @@ export default {
         this.changeToLikeIcon();
       }
       else{
-        console.log("error accured while favorite " + response.status);
+        //console.log("error accured while favorite " + response.status);
       }
     },
   }

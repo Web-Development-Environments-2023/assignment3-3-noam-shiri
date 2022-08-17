@@ -289,7 +289,7 @@ export default {
     },
     async Register() {
       try {
-        console.log(this.form.username,this.form.firstname,this.form.lastname, this.form.country, this.form.password, this.form.email,this.form.profilePic.name);
+        //console.log(this.form.username,this.form.firstname,this.form.lastname, this.form.country, this.form.password, this.form.email,this.form.profilePic.name);
         const response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/user/Register",
           this.$root.store.server_domain + "/Register",
@@ -305,9 +305,9 @@ export default {
           }
         );
         this.$router.push("/login");
-        console.log(response.data);
+        //console.log(response.data);
       } catch (err) {
-        console.log(err.response);
+        //console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
     },
