@@ -174,7 +174,7 @@ export default {
           }
         }
         catch(error){
-          this.msg = "A problem accured while saving the recipe."
+          this.msg = "A problem accured while saving the recipe." + error.response.data.message;
           this.msgClass = "error-msg";
         }
       }
