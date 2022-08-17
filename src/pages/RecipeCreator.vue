@@ -5,7 +5,7 @@
   </div>
   <b-container class="container">
     <b-modal id="modal-id" title="Create New Recipe" size="xl" ok-only>
-      <b-form @submit.prevent="onSave">
+      <b-form @submit="onSave">
 
         <b-row>
           <b-col cols="6">

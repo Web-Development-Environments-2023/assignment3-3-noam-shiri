@@ -151,11 +151,6 @@ export default {
   min-height: 400px;
 }
 
-// .recipePreview{
-//   padding-top: 5%;
-//   padding-left: 10%;
-// }
-
 #divRandomBtn{
   margin: 2%;
   text-align: center;

@@ -251,7 +251,4 @@ form h3{
   margin-left:13%;
 }
 
-.recipePreview{
-  margin-right: 20%;
-}
 </style>
