@@ -9,9 +9,8 @@
           <h1>Hello Guest!</h1>
           <router-link id="login-opt" class="sign-opt" to="/login"><b>Click Here to Login</b></router-link>
           <br/>
-          <label id="register-opt">Do not have an account yet? 
-            <router-link to="/register" class="sign-opt" >Click Here to Register</router-link>
-          </label>
+          <h5 id="register-opt">Do not have an account yet?</h5>
+          <router-link to="/register" class="sign-opt" >Click Here to Register</router-link>
         </div>        
         <RecipePreviewList v-else
           title="Last Viewed Recipes"
