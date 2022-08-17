@@ -105,8 +105,8 @@ const shared_data = {
     this.sessionLastSearchResults = {};
   },
   
-  server_domain: 'http://localhost:80',
-  //server_domain: 'https://RecipesBySN.cs.bgu.ac.il:80',
+  //server_domain: 'http://localhost:80',
+  server_domain: 'https://RecipesBySN.cs.bgu.ac.il',
   iconsLinks : {
     notFavorite: dislike,
     favorite: like,
